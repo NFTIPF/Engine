@@ -48,12 +48,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\local\boost_1_59_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\local\boost_1_59_0\lib32-msvc-12.0;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\local\boost_1_59_0;C:\SFML-2.3.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\local\boost_1_59_0\lib32-msvc-12.0;C:\SFML-2.3.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\local\boost_1_59_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\local\boost_1_59_0\lib32-msvc-12.0;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\local\boost_1_59_0;C:\SFML-2.3.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\local\boost_1_59_0\lib32-msvc-12.0;C:\SFML-2.3.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -64,6 +64,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,6 +80,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
