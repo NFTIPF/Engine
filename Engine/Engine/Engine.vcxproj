@@ -14,10 +14,16 @@
     <ClCompile Include="INIReader.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="NameSearchable\NameSearchable.cpp" />
+    <ClCompile Include="ResourceManager\ResourceGroup.cpp" />
+    <ClCompile Include="ResourceManager\ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INIReader.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="NameSearchable\NameSearchable.h" />
+    <ClInclude Include="ResourceManager\ResourceGroup.h" />
+    <ClInclude Include="ResourceManager\ResourceManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E4773390-6C05-47C2-AEAE-C779CFC9B10F}</ProjectGuid>
