@@ -43,7 +43,8 @@ int NameSearchable::ntoi(const std::string& name, const int& vecIndex)	//accesse
 
 void NameSearchable::setVectorSize(const int& size)	//resizes the vector of name maps -- typically used only once
 {
-	nameMapVector.resize(size);						//resize it
+	std::map<std::string, int> val;
+	nameMapVector.resize(size, val);						//resize it
 }
 
 

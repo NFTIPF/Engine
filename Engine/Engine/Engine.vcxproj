@@ -11,24 +11,36 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Downcast.cpp" />
     <ClCompile Include="INIParser.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="NameSearchable\NameSearchable.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectGroup.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="ResourceManager\ResourceGroup.cpp" />
     <ClCompile Include="ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="UnitTester.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defines.hpp" />
+    <ClInclude Include="Downcast.hpp" />
     <ClInclude Include="INIParser.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="NameSearchable\NameSearchable.hpp" />
+    <ClInclude Include="Object.hpp" />
+    <ClInclude Include="ObjectGroup.hpp" />
+    <ClInclude Include="ObjectManager.hpp" />
     <ClInclude Include="ResourceManager\ResourceGroup.hpp" />
     <ClInclude Include="ResourceManager\ResourceManager.hpp" />
     <ClInclude Include="UnitTester.hpp" />
     <ClInclude Include="Utilities.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestObject.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E4773390-6C05-47C2-AEAE-C779CFC9B10F}</ProjectGuid>
@@ -72,6 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\local\boost_1_59_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

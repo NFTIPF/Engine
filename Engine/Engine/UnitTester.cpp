@@ -8,10 +8,12 @@
 #include "ResourceManager\ResourceGroup.hpp"
 #include "INIParser.hpp"
 
-testing::UnitTester::UnitTester(){}
-testing::UnitTester::~UnitTester(){}
+using namespace testing;
 
-void testing::UnitTester::runTests()
+UnitTester::UnitTester(){}
+UnitTester::~UnitTester(){}
+
+void UnitTester::runTests()
 {
 #ifdef TEST_ALL	
 	utilities();
@@ -40,7 +42,7 @@ void testing::UnitTester::runTests()
 
 //PRIVATE FUNCTIONS
 
-void testing::UnitTester::utilities()
+void UnitTester::utilities()
 {
 
 
@@ -60,12 +62,20 @@ void testing::UnitTester::utilities()
 	std::vector<std::string> expected = { "One", "Two", "Three" };
 	std::vector<std::string> expected2 = { "One", "Three" };
 	std::vector<std::string> expected3 = { "OneTwoThree" };
-	
 	if (util::splitStrAtSubstr("One.Two.Three", ".") != expected) { BOOST_LOG_SEV(testLogger, ERROR) << "Input to util::splitStrAtSubstr failed. IN: \"One.Two.Three\", \".\""; }
 	if (util::splitStrAtSubstr("One\"Two\"Three", "\"") != expected) { BOOST_LOG_SEV(testLogger, ERROR) << "Input to util::splitStrAtSubstr failed. IN: \"One\"Two\"Three\", \"\"\""; }
 	if (util::splitStrAtSubstr("OneTwoThree", ".") != expected3) { BOOST_LOG_SEV(testLogger, ERROR) << "Input to util::splitStrAtSubstr failed. IN: \"One.Two.Three\", \".\""; }
 	if (util::splitStrAtSubstr("OneTwoThree", "Two") != expected2) { BOOST_LOG_SEV(testLogger, ERROR) << "Input to util::splitStrAtSubstr failed. IN: \"OneTwoThree\", \"Two\""; }
 
+	BOOST_LOG_SEV(testLogger, INFO) << "Now testing: std::string util::vecToStr(const std::vector<std::string>& vec, const std::string& between);";
+	std::vector<std::string> in1 = {"One", "Two", "Three"}; std::string in12 = "."; std::string out1 = "One.Two.Three";
+	std::vector<std::string> in2 = {"Hello", "World"}; std::string in22 = " To The "; std::string out2 = "Hello To The World";
+	std::string out3 = "OneTwoThree";
+	if (util::vecToStr(in1, in12) != out1){ BOOST_LOG_SEV(testLogger, ERROR) << "Input to util::vecToStr failed.  IN: {One, Two, Three}, \".\""; }
+	if (util::vecToStr(in2, in22) != out2) { BOOST_LOG_SEV(testLogger, ERROR) << "Input to util::vecToStr faile. IN: {Hello, World}, \" To The \""; }
+	if (util::vecToStr(in1, "") != out3) { BOOST_LOG_SEV(testLogger, ERROR) << "Input to util::vecToStr filed. IN: {One, Two, Three}, NOTHING"; }
+
+	/*
 	BOOST_LOG_SEV(testLogger, INFO) << "Now testing: void nullCopyVector(const std::vector<T>& toCopy, const std::vector<T>& vec);";
 	int nullInt = NULL;
 	std::vector<int> mixedVec = { 4, nullInt, 5, nullInt, 124 };
@@ -73,24 +83,25 @@ void testing::UnitTester::utilities()
 	std::vector<int> expectedVec = { 4, 4, 5, 5, 124 };
 	util::nullCopyVector<int>(mixedVec, startingVec);
 	if (startingVec != expectedVec) { BOOST_LOG_SEV(testLogger, ERROR) << "Input to util::nullCopyVector failed. IN: {4, nullInt, 5, nullInt, 124}, {3, 5, 8, 5, 1265}"; }
+	*/
 }
 
-void testing::UnitTester::logging()
+void UnitTester::logging()
 {
 
 }
 
-void testing::UnitTester::resourceGroup()
+void UnitTester::resourceGroup()
 {
 
 }
 
-void testing::UnitTester::resourceManager()
+void UnitTester::resourceManager()
 {
 	
 }
 
-void testing::UnitTester::INIParser()
+void UnitTester::INIParser()
 {
 
 }
