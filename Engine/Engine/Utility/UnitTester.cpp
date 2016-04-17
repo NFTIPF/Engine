@@ -17,6 +17,7 @@ void UnitTester::runTests()
 	resourceGroup();
 	resourceManager();
 	INIParser();
+	hitboxes();
 #elif
 	#ifdef TEST_UTILITIES
 		utilities();
@@ -32,6 +33,10 @@ void UnitTester::runTests()
 	#endif
 	#ifdef TEST_INI_PARSER
 			INIParser();
+	#endif
+
+	#ifdef TEST_HIT_BOXES
+			hitboxes();
 	#endif
 #endif
 }
@@ -160,6 +165,132 @@ void UnitTester::resourceManager()
 
 void UnitTester::INIParser()
 {
+
+}
+
+void UnitTester::hitboxes()
+{
+	HitBoxCollider hbCollider;
+
+
+	AAHitbox aahb_t1a;
+	aahb_t1a.setPosition(0,0);
+	aahb_t1a.setSize(100,100);
+
+	AAHitbox aahb_t1b;
+	aahb_t1b.setPosition(50, 50);
+	aahb_t1b.setSize(100, 100);
+
+	bool testResult = hbCollider.checkCollision(&aahb_t1a, &aahb_t1b);
+
+	BOOST_LOG_SEV(testLogger, DEBUG) << "Double Axis-Aligned Hitbox Collision test 1 should have returned 1 (true). Actually returns: " << testResult << " Corners: hbA: { (-50, -50), (50, 50) }, hbB: { (0, 0), (100, 100) } ";
+
+
+
+
+	AAHitbox aahb_t2a;
+	aahb_t2a.setPosition(0, 0);
+	aahb_t2a.setSize(100, 100);
+
+	AAHitbox aahb_t2b;
+	aahb_t2b.setPosition(500, 500);
+	aahb_t2b.setSize(100, 100);
+
+	testResult = hbCollider.checkCollision(&aahb_t2a, &aahb_t2b);
+
+
+	BOOST_LOG_SEV(testLogger, DEBUG) << "Double Axis-Aligned Hitbox Collision test 2 should have returned 0 (false). Actually returns: " << testResult << " Corners: hbA: { (-50, -50), (50, 50) }, hbB: { (450, 450), (550, 550) } ";
+
+	
+
+
+	CircularHitbox chb_t1a;
+	chb_t1a.setPosition(0, 0);
+	chb_t1a.setRadius(60);
+
+
+	CircularHitbox chb_t1b;
+	chb_t1b.setPosition(100, 0);
+	chb_t1b.setRadius(60);
+
+	testResult = hbCollider.checkCollision(&chb_t1a, &chb_t1b);
+
+	BOOST_LOG_SEV(testLogger, DEBUG) << "Double Circular Hitbox Collision test 1 should have returned 1 (true). Actually returns: " << testResult << " CircleA: {position: (0,0) rad: 60},  CircleB: {position: (100,0) rad: 60}";
+
+
+
+	CircularHitbox chb_t2a;
+	chb_t2a.setPosition(0, 0);
+	chb_t2a.setRadius(45);
+
+
+	CircularHitbox chb_t2b;
+	chb_t2b.setPosition(100, 0);
+	chb_t2b.setRadius(45);
+
+	testResult = hbCollider.checkCollision(&chb_t2a, &chb_t2b);
+
+	BOOST_LOG_SEV(testLogger, DEBUG) << "Double Circular Hitbox Collision test 2 should have returned 0 (false). Actually returns: " << testResult << " CircleA: {position: (0,0) rad: 45},  CircleB: {position: (100,0) rad: 45}";
+
+
+
+	CircularHitbox db_t1a;
+	db_t1a.setPosition(0, 0);
+	db_t1a.setRadius(400);
+
+
+	AAHitbox db_t1b;
+	db_t1b.setPosition(100, 0);
+	db_t1b.setSize(100, 100);
+
+	testResult = hbCollider.checkCollision(&db_t1a, &db_t1b);
+
+	BOOST_LOG_SEV(testLogger, DEBUG) << "Diffrent Collision test 1 should have returned 1 (true). Actually returns: " << testResult << " CircleA: {position: (0,0) rad: 400},  BoxB: corners { (50, -50), (150, 50)}";
+
+
+	CircularHitbox db_t2a;
+	db_t2a.setPosition(0, 0);
+	db_t2a.setRadius(400);
+
+
+	AAHitbox db_t2b;
+	db_t2b.setPosition(1000, 0);
+	db_t2b.setSize(100, 100);
+
+	testResult = hbCollider.checkCollision(&db_t2a, &db_t2b);
+
+	BOOST_LOG_SEV(testLogger, DEBUG) << "Diffrent Collision test 2 should have returned 0 (false). Actually returns: " << testResult << " CircleA: {position: (0,0) rad: 400},  BoxB: corners { (950, -50), (1050, 50)}";
+
+
+
+
+	CircularHitbox db_t3a;
+	db_t3a.setPosition(52, 0);
+	db_t3a.setRadius(5);
+
+
+	AAHitbox db_t3b;
+	db_t3b.setPosition(0, 0);
+	db_t3b.setSize(100, 100);
+
+	testResult = hbCollider.checkCollision(&db_t3a, &db_t3b);
+
+	BOOST_LOG_SEV(testLogger, DEBUG) << "Diffrent Collision test 3 should have returned 1 (true). Actually returns: " << testResult << " CircleA: {position: (52,0) rad: 5},  BoxB: corners { (-50, -50), (50, 50)}";
+
+
+
+	CircularHitbox db_t4a;
+	db_t4a.setPosition(0,0);
+	db_t4a.setRadius(100);
+
+
+	AAHitbox db_t4b;
+	db_t4b.setCorners(sf::Vector2f(72, 72), sf::Vector2f(200, 200));
+
+	testResult = hbCollider.checkCollision(&db_t4a, &db_t4b);
+
+	BOOST_LOG_SEV(testLogger, DEBUG) << "Diffrent Collision test 4 should have returned 0 (false). Actually returns: " << testResult << " CircleA: {position: (0,0) rad: 100},  BoxB: corners { (72, 72), (200, 200)}";
+
 
 }
 #endif

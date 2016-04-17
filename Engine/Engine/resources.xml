@@ -36,8 +36,38 @@
 		<path>Resources/TestResources/darksky.png</path>
 		<name>darksky</name>
 	</resource>
-		<resource>
+	<resource>
 		<path>Resources/TestResources/moon.png</path>
 		<name>moon</name>
+	</resource>
+	<resource>
+		<path>Resources/TestResources/EasterEgg.png</path>
+		<name>egg</name>
+	</resource>
+	<resource>
+		<path>Resources/GUIResources/TextBar.png</path>
+		<name>EditorEntryBar</name>
+	</resource>
+	<resource>
+		<path>Resources/GUIResources/GrayTextBoxBackground.png</path>
+		<name>EditorEntryBG</name>
+		<group>EditorButton:6</group>
+	</resource>
+	<resource>
+		<path>Resources/GUIResources/TimesNewRoman.ttf</path>
+		<name>EditorFont</name>
+		<group>EditorButton:1</group>
+	</resource>
+	<resource>
+		<path>Resources/ShipGame</path>
+		<name>DONTCARE</name>
+	</resource>
+	<resource>
+		<path>Resources/walking.png</path>
+		<name>walking</name>
+	</resource>
+	<resource>
+		<path>Resources/idle.png</path>
+		<name>idle</name>
 	</resource>
 </resources>

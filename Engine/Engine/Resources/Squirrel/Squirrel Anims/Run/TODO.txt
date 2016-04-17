@@ -1,0 +1,4 @@
+-Add Tail movement
+-Add Head movement
+-Add more frames
+-Make shading better

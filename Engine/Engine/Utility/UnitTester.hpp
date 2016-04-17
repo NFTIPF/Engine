@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "../Defines.hpp"	//global #defines
 
 #ifdef RUN_TESTS
@@ -12,6 +13,7 @@
 #include "Logger.hpp"
 #include "..\ResourceManager\ResourceGroup.hpp"
 #include "INIParser.hpp"
+#include "../Objects/Physics/Collision/HitBoxCollider.hpp"
 
 
 namespace testing
@@ -32,6 +34,7 @@ namespace testing
 		void resourceGroup();
 		void resourceManager();
 		void INIParser();
+		void hitboxes();
 	};
 
 }

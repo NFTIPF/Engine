@@ -1,0 +1,16 @@
+loop should look like this:
+
+increment movement
+
+check for collision (true/false)
+
+if (true)
+{
+	
+
+}
+
+else
+{
+
+}

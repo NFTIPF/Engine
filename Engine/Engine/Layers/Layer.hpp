@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "..\Utility\Utilities.hpp"
+#include "../Utility/XMLParser.hpp"
 
 class Layer
 {
@@ -12,7 +13,7 @@ public:
 
 
 	void create();
-
+	boost::property_tree::ptree write();
 
 	void setScrollSpeed(const sf::Vector2f& fspeed);	//set the scrolling speed of the layer; should be pairs of numbers bewtween 0 and 1 inclusive
 
@@ -54,7 +55,7 @@ public:
 	float getMinWindowY();
 	float getMaxWindowY();
 
-	std::pair<sf::Vector2f, sf::Vector2f> getWindowCorners();
+	std::pair<sf::Vector2f, sf::Vector2f> getWindowCorners();	//first is top left and second is bottom right
 
 
 

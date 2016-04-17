@@ -1,48 +1,43 @@
 <map>
-	<layer z="0" scrollx="1" scrolly="1">
-		<object>
-			<type>MovingTestObject</type>
-			<position x="500" y="500"></position>
-			<size x="0" y="0"></size>
-			<texture>squirrel</texture>
-		</object>
+	<layer z="0" scrollx="1" scrolly="1" boundx = "13920" boundy="8080">
+		<chunk index="1">
+			<object>
+				<type>MovingTestObject</type>
+				<position x="500" y="500"></position>
+				<size x="0" y="0"></size>
+				<texture>diver</texture>
+			</object>
+		</chunk>
 	</layer>
-	<layer z="1" scrollx="1.4" scrolly="1.4">
-		<object>
-			<type>TestObject</type>
-			<position x="1200" y="800"></position>
-			<size x="0" y="0"></size>
-			<texture>acorn</texture>
-		</object>
-		<object>
-			<type>TestObject</type>
-			<position x="1100" y="800"></position>
-			<size x="0" y="0"></size>
-			<texture>acorn</texture>
-		</object>
+	<layer z="1" scrollx="1.4" scrolly="1.4" boundx = "13920" boundy="8080">
+		<chunk index ="1">
+			<object>
+				<type>TestObject</type>
+				<position x="0" y="0"></position>
+				<size x="1" y="1"></size>
+				<texture>acorn</texture>
+			</object>
+		</chunk>
 	</layer>
-	<layer z="2" scrollx=".3" scrolly=".3">
-		<object>
-			<type>TestObject</type>
-			<position x="600" y="200"></position>
-			<size x="0" y="0"></size>
-			<texture>KittyKitty</texture>
-		</object>
+	<layer z="2" scrollx=".3" scrolly=".3" boundx = "13920" boundy="2080">
+		<chunk index="1">
+			<object>
+				<type>TestObject</type>
+				<position x="0" y="0"></position>
+				<size x="1" y="1"></size>
+				<texture>acorn</texture>
+			</object>
+		</chunk>
 	</layer>
-	<layer z="3" scrollx=".1" scrolly=".2">
-		<object>
-			<type>TestObject</type>
-			<position x="960" y="540"></position>
-			<size x="1920" y="1080"></size>
-			<texture>darksky</texture>
-		</object>
-		<object>
-			<type>TestObject</type>
-			<position x="400" y="400"></position>
-			<size x="0" y="0"></size>
-			<texture>moon</texture>
-		</object>
-
+	<layer z="3" scrollx=".1" scrolly=".2" boundx = "13920" boundy="8080">
+		<chunk index="1">
+			<object>
+				<type>TestObject</type>
+				<position x="0" y="0"></position>
+				<size x="1" y="1"></size>
+				<texture>acorn</texture>
+			</object>
+		</chunk>
 	</layer>
 	
 </map>

@@ -46,7 +46,7 @@ public:
 	void writeFile(const std::string& XMLPath);	//overloaded for names other than default
 
 	template<class T>
-	void readValue(const std::string& path, T& var, boost::property_tree::ptree currentTree)
+	void readValue(const std::string& path, T& var, const boost::property_tree::ptree& currentTree)
 	{
 		//tree.get would throw ptree_bad_path (ptree_error) on nonexistent value
 		boost::optional<T> op = currentTree.get_optional<T>(path); //returns uninitialized boost::optional object if value != exist
@@ -59,6 +59,15 @@ public:
 		{
 			BOOST_LOG_SEV(logger, INFO) << "Value not loaded from XML file \"" << filePath << "\": Section=\"" << workingPath << "\" Key=\"" << path << "\"";
 		}
+	}
+
+	template<class T>
+	T readValue(const std::string& path, const boost::property_tree::ptree& currentTree)
+	{
+		//tree.get would throw ptree_bad_path (ptree_error) on nonexistent value
+		T ret;
+		readValue<T>(path, ret, currentTree);
+		return ret;
 	}
 
 	template<class T>

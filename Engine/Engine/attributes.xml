@@ -1,0 +1,44 @@
+<types>
+	<type name="TestObject">
+		<attr attr="position.<xmlattr>.y"></attr>
+		<attr attr="position.<xmlattr>.x"></attr>
+		<attr attr="size.<xmlattr>.x"></attr>
+		<attr attr="size.<xmlattr>.y"></attr>
+		<attr attr="texture"></attr>
+	</type>
+	<type name="MovingTestObject">
+		<attr attr="position.<xmlattr>.y"></attr>
+		<attr attr="position.<xmlattr>.x"></attr>
+		<attr attr="texture"></attr>
+	</type>
+	<type name="resource">
+		<attr attr="name"></attr>
+		<attr attr="path"></attr>
+		<attr attr="group"></attr>
+	</type>
+	<type name="layer">
+		<attr attr="layer.<xmlattr>.z"></attr>
+		<attr attr="layer.<xmlattr>.scrollx"></attr>
+		<attr attr="layer.<xmlattr>.scrolly"></attr>
+		<attr attr="layer.<xmlattr>.boundx"></attr>
+		<attr attr="layer.<xmlattr>.boundy"></attr>
+	</type>
+	<type name="Squirrel">
+		<attr attr="walking"/>
+		<attr attr="idle"/>
+		<attr attr="fps"/>
+		<attr attr="position.<xmlattr>.x"/>
+		<attr attr="position.<xmlattr>.y"/>
+		<attr attr="size.<xmlattr>.x"/>
+		<attr attr="size.<xmlattr>.y"/>
+		<attr attr="moveSpeed"/>
+		<attr attr="frameSize.<xmlattr>.x"/>
+		<attr attr="frameSize.<xmlattr>.y"/>
+	</type>
+	<type name="Platform">
+		<attr attr="position.<xmlattr>.x"/>
+		<attr attr="position.<xmlattr>.y"/>
+		<attr attr="size.<xmlattr>.x"/>
+		<attr attr="size.<xmlattr>.y"/>
+	</type>
+</types>

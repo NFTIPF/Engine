@@ -1,0 +1,3 @@
+Run>Standing and Standing>Run transition
+Idle animation
+Jump animation

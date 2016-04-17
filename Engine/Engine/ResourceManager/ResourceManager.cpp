@@ -7,7 +7,8 @@
 
 ResourceManager::ResourceManager()						//Constructor
 {
-	setVectorSize(5);									//set the vector of name maps to 4: Textures, Fonts, SoundBuffers, ResourceGroups
+	setVectorSize(4);									//set the vector of name maps to 4: Textures, Fonts, SoundBuffers, ResourceGroups
+	textureVector.resize(100);
 
 	resourceManagerLogger = logger::getSLogger();		//setup the logger
 }
@@ -27,7 +28,7 @@ void ResourceManager::loadFileTree(const std::string& directory)
 	if (!files.size())
 	{
 		BOOST_LOG_SEV(resourceManagerLogger, WARNING) << "Tree " << directory << " did not produce any files";
-													//Log a warning if files is empty
+		//Log a warning if files is empty
 	}
 	else
 	{
@@ -36,7 +37,7 @@ void ResourceManager::loadFileTree(const std::string& directory)
 			BOOST_LOG_SEV(resourceManagerLogger, DEBUG) << "Adding File: " << getFileName(files[i]) << " (" << files[i] << ")";
 			loadFile(files[i], getFileName(files[i]));
 
-													//otherwise, add the file and give a debug message
+			//otherwise, add the file and give a debug message
 		}
 	}
 
@@ -57,21 +58,21 @@ void ResourceManager::loadFileTree(const std::string& directory, const std::stri
 	{
 		for (unsigned int i = 0; i < files.size(); i++)
 		{
-			if ((getExtension(files[i]) == ext) || (("." + getExtension(files[i])) == ext))		
-													//treats "png" and ".png" as the extension the same
+			if ((getExtension(files[i]) == ext) || (("." + getExtension(files[i])) == ext))
+				//treats "png" and ".png" as the extension the same
 			{
 				BOOST_LOG_SEV(resourceManagerLogger, DEBUG) << "Adding File: " << getFileName(files[i]) << " (" << files[i] << ")";
 				loadFile(files[i], getFileName(files[i]));
 
 				extensionFound = true;
-													//if the extension matched, add the file
+				//if the extension matched, add the file
 			}
 		}
 
 		if (!extensionFound)
 		{
 			BOOST_LOG_SEV(resourceManagerLogger, WARNING) << "No files with extension " << ext << " was found in directory tree " << directory;
-													//if no files with that extension were found in the tree, logs a warning message
+			//if no files with that extension were found in the tree, logs a warning message
 		}
 	}
 }
@@ -93,7 +94,7 @@ void ResourceManager::loadFileDirectory(const std::string& directory)
 
 			loadFile(files[i], getFileName(files[i]));
 
-														//add the files
+			//add the files
 		}
 	}
 }
@@ -113,19 +114,19 @@ void ResourceManager::loadFileDirectory(const std::string& directory, const std:
 		for (unsigned int i = 0; i < files.size(); i++)
 		{
 			if ((getExtension(files[i]) == ext) || (("." + getExtension(files[i])) == ext))
-														//treats "png" and ".png" the same
+				//treats "png" and ".png" the same
 			{
 				BOOST_LOG_SEV(resourceManagerLogger, DEBUG) << "Adding File: " << getFileName(files[i]) << " (" << files[i] << ")";
 				loadFile(files[i], getFileName(files[i]));
 				extensionFound = true;
-														//if the extension matches, add the file
+				//if the extension matches, add the file
 			}
 		}
 
 		if (!extensionFound)
 		{
 			BOOST_LOG_SEV(resourceManagerLogger, WARNING) << "No files with extension " << ext << " was found in directory " << directory;
-														//give a warning if no files with that extension was found in the directory
+			//give a warning if no files with that extension was found in the directory
 		}
 	}
 }
@@ -134,7 +135,7 @@ void ResourceManager::addFilesResourceGroupFromDirectory(const std::string& dire
 {
 	std::vector<const std::string> files;
 	fillFileNameVectorFromDirectory(directory, files);
-	
+
 
 	if (!files.size())
 	{
@@ -156,7 +157,7 @@ void ResourceManager::addFilesResourceGroupFromDirectory(const std::string& dire
 	for (unsigned int i = 0; i < files.size(); i++)
 	{
 		addResourcetoResourceGroup(directoryName, getFileName(files[i]), getExtension(files[i]), getFileName(files[i]));
-														//add the files to the resourceGroup
+		//add the files to the resourceGroup
 	}
 
 }
@@ -185,7 +186,7 @@ void ResourceManager::addFilesResourceGroupFromDirectory(const std::string& dire
 	for (unsigned int i = 0; i < files.size(); i++)
 	{
 		addResourcetoResourceGroup(RGName, getFileName(files[i]), getExtension(files[i]), getFileName(files[i]));
-														//add the files	
+		//add the files	
 	}
 
 }
@@ -202,32 +203,25 @@ void ResourceManager::loadFile(const std::string& fileName, const std::string& n
 
 		addName(name, Font_Names, fontVector.size() - 1);			//add the name
 	}
-	else if (	ext == "png" || 
-				ext == "jpg" || 
-				ext == "jpeg" ||	
-				ext == "bmp")										//these extensions are textures
+	else if (ext == "png" ||
+		ext == "jpg" ||
+		ext == "jpeg" ||
+		ext == "bmp")										//these extensions are textures
 	{
 		addTexture(fileName);										//add the texture
 
 		addName(name, Texture_Names, textureVector.size() - 1);		//add the name
 	}
-	else if (	ext == "wav" ||
-				ext == "aif" ||
-				ext == "mp3" ||
-				ext == "mp2" ||
-				ext == "ogg" ||
-				ext == "raw")										//these are soundBuffers
+	else if (ext == "wav" ||
+		ext == "aif" ||
+		ext == "mp3" ||
+		ext == "mp2" ||
+		ext == "ogg" ||
+		ext == "raw")										//these are soundBuffers
 	{
 		addSoundBuffer(fileName);
 
-		addName(name, SoundBuffer_Names, soundBufferVector.size()-1);
-	}
-	else if (ext == "vert" ||
-			 ext == "frag")
-	{
-		addShader(fileName);
-
-		addName(name, Shader_Names, shaderVector.size() - 1);
+		addName(name, SoundBuffer_Names);
 	}
 
 	else
@@ -237,9 +231,12 @@ void ResourceManager::loadFile(const std::string& fileName, const std::string& n
 
 }
 
+sf::Texture* ResourceManager::getTexturePointerByIndex(const int& index)
+{
+	return &(textureVector[index]);
+}
 
-
-sf::Texture* ResourceManager::getTexturePointerByName(const std::string& name)	
+sf::Texture* ResourceManager::getTexturePointerByName(const std::string& name)
 {
 
 	return &textureVector[ntoi(name, Texture_Names)];				//return the texture with the desired name  
@@ -260,13 +257,6 @@ sf::SoundBuffer* ResourceManager::getSoundBufferPointerByName(const std::string&
 
 }
 
-sf::Shader* ResourceManager::getShaderPointerByName(const std::string& name)
-{
-
-	return &shaderVector[ntoi(name, Shader_Names)];
-
-}
-
 
 
 void ResourceManager::addEmptyResourceGroup(const std::string& name)		//adds an empty resourceGroup and give it a name
@@ -274,18 +264,18 @@ void ResourceManager::addEmptyResourceGroup(const std::string& name)		//adds an 
 	ResourceGroup empt;														//make an empty resource group
 
 	resourceGroups.push_back(empt);											//add it
-	
+
 	addName(name, ResourceGroup_Names, resourceGroups.size() - 1);			//add the name
 }
 
-void ResourceManager::addResourceGroup(ResourceGroup fResourceGroup, const std::string& name)		
-																			//adds an already created resourceGroup and name it
+void ResourceManager::addResourceGroup(ResourceGroup fResourceGroup, const std::string& name)
+//adds an already created resourceGroup and name it
 {
 
 	resourceGroups.push_back(fResourceGroup);								//add the resourceGroup
 
 	addName(name, ResourceGroup_Names, resourceGroups.size() - 1);			//add the name
-	
+
 }
 
 
@@ -303,14 +293,14 @@ void ResourceManager::addResourcetoResourceGroup(const std::string& rsName, cons
 	{
 		ext.erase(0, 1);						//kills the dot if passed by accident
 	}
-												
-	
+
+
 	if (ext == "ttf")							//interprets the extension...
 	{
 		if (nodesname)
 		{
 			addFonttoResourceGroup(rsName, fileName);
-												//if there was no name, add it without a name
+			//if there was no name, add it without a name
 		}
 		else
 		{
@@ -347,19 +337,6 @@ void ResourceManager::addResourcetoResourceGroup(const std::string& rsName, cons
 			addSoundBuffertoResourceGroup(rsName, fileName, desName);
 		}
 	}
-
-	else if (ext == "vert" ||
-		ext == "frag")
-	{
-		if (nodesname)
-		{
-			addShadertoResourceGroup(rsName, fileName);
-		}
-		else
-		{
-			addShadertoResourceGroup(rsName, fileName, desName);
-		}
-	}
 	else
 	{
 		BOOST_LOG_SEV(resourceManagerLogger, ERROR) << "Could not add file to resource group \"" << ext << "\"extension type not supported";
@@ -368,15 +345,15 @@ void ResourceManager::addResourcetoResourceGroup(const std::string& rsName, cons
 
 void ResourceManager::addTexturetoResourceGroup(const std::string& rsName, const std::string& texName)	//adds a Texture to a ResourceGroup by name
 {
-	
+
 	resourceGroups[ntoi(rsName, ResourceGroup_Names)].addTexture(getTexturePointerByName(texName));
-																										//literally just add the texture without a name
+	//literally just add the texture without a name
 }
 
 void ResourceManager::addTexturetoResourceGroup(const std::string& rsName, const std::string& texName, const std::string& desName)
 {
 	resourceGroups[ntoi(rsName, ResourceGroup_Names)].addTexture(getTexturePointerByName(texName), desName);
-																										//add the texture with the name
+	//add the texture with the name
 }
 
 void ResourceManager::addFonttoResourceGroup(const std::string& rsName, const std::string& fontName)
@@ -399,22 +376,13 @@ void ResourceManager::addSoundBuffertoResourceGroup(const std::string& rsName, c
 	resourceGroups[ntoi(rsName, ResourceGroup_Names)].addSoundBuffer(getSoundBufferPointerByName(sbName), desName);
 }
 
-void ResourceManager::addShadertoResourceGroup(const std::string& rsName, const std::string& shaderName)
-{
-	resourceGroups[ntoi(rsName, ResourceGroup_Names)].addShader(getShaderPointerByName(shaderName));
-}
-
-void ResourceManager::addShadertoResourceGroup(const std::string& rsName, const std::string& shaderName, const std::string& desName)
-{
-	resourceGroups[ntoi(rsName, ResourceGroup_Names)].addShader(getShaderPointerByName(shaderName), desName);
-}
 
 
 ResourceGroup* ResourceManager::getResourceGroupByName(const std::string& name)
 {
 
 	return &resourceGroups[ntoi(name, ResourceGroup_Names)];	//returns the resource set with the desired name
-	
+
 }
 
 //----------------------------------------------------------------------------------------------------------------------------***************************
@@ -427,7 +395,7 @@ std::string ResourceManager::getExtension(const std::string& fpath)			//returns 
 	return returned[returned.size() - 1];
 }
 
-std::string ResourceManager::getFileName(const std::string& fpath)	
+std::string ResourceManager::getFileName(const std::string& fpath)
 {
 	std::vector<std::string> fileName = util::splitStrAtSubstr(fpath, "\\");
 	std::vector<std::string> returned = util::splitStrAtSubstr(fileName[fileName.size() - 1], ".");
@@ -460,7 +428,7 @@ void ResourceManager::fillFileNameVectorFromTree(const std::string& directory, s
 			else if (boost::filesystem::is_directory(it->status()))
 			{
 				fillFileNameVectorFromTree(directory + "\\" + it->path().filename().string(), namevec);		//if a "file" is actually a folder, recurse
-																											//using that folder as the directory
+				//using that folder as the directory
 			}
 
 		}
@@ -506,8 +474,8 @@ void ResourceManager::addTexture(const std::string& fileName)
 
 	if (!texture.loadFromFile(fileName))						//try to make it load from the file
 	{
-		BOOST_LOG_SEV(resourceManagerLogger, ERROR) << fileName << " (Texture) failed to load.";				
-																// if it doesn't, there is an error
+		BOOST_LOG_SEV(resourceManagerLogger, ERROR) << fileName << " (Texture) failed to load.";
+		// if it doesn't, there is an error
 	}
 	else
 	{
@@ -524,7 +492,7 @@ void ResourceManager::addFont(const std::string& fileName)
 
 	if (!font.loadFromFile(fileName))
 	{
-		BOOST_LOG_SEV(resourceManagerLogger, ERROR) << fileName << " (Font) failed to load.";			
+		BOOST_LOG_SEV(resourceManagerLogger, ERROR) << fileName << " (Font) failed to load.";
 
 	}
 	else
@@ -551,16 +519,4 @@ void ResourceManager::addSoundBuffer(const std::string& fileName)
 	}
 	soundBufferVector.push_back(buffer);
 
-}
-
-void ResourceManager::addShader(const std::string& fileName)
-{
-	sf::Shader shader;
-
-	if (!shader.loadFromFile(fileName))
-	{
-		BOOST_LOG_SEV(resourceManagerLogger, ERROR) << fileName << "(Shader) failed to load.";
-	}
-
-	shaderVector.push_back(shader);
 }

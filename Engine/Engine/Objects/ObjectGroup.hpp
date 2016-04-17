@@ -39,7 +39,7 @@ namespace objects
 		void removeObject(const boost::shared_ptr<Object>& objectPtr);	//deletes object by searching for specific pointer
 
 		boost::shared_ptr<Object> getObject(const std::string& path);	//returns pointer to specified object, "path" includes ID
-		boost::shared_ptr<Object> getObject(const int& ID);				//overloaded for index only, supports arrays
+		boost::shared_ptr<Object> getObject(const int& ID, const bool& tree = true);				//overloaded for index only, supports arrays
 
 		//ObjectGroup vector manipulation functions
 		void addObjectGroup(const ObjectGroup& newGroup, const std::string& name);	//adds new group to "groups" vector
@@ -50,6 +50,7 @@ namespace objects
 		ObjectGroup* getObjectGroup(const std::vector<std::string>& pathVec);		//get specified objectgroup ptr
 		ObjectGroup* getObjectGroup(const std::string& path);						
 
+		std::vector<int> getObjectIDs(bool recursive = false);
 
 		void forceObjectSort();		//essentially checks sorting of objects by ID by sorting everything again using insertion sort
 
@@ -67,18 +68,15 @@ namespace objects
 			{
 				fxn(*(objects[i].get()));	//calls function
 			}
+			for (unsigned int grpIt = 0; grpIt < groups.size(); grpIt++)
+			{
+				groups[grpIt].callFunction(fxn);
+			}
 		}
 
 	protected:
-		template<class T>
-		void deleteObjectFromTree(const T& object)
-		{
-			removeObject(object);
-			for (int i = 0; i < groups.size(); i++)
-			{
-				groups[i].deleteObjectFromTree(object)
-			}
-		}
+		void deleteObjectFromTree(const int& ID);
+
 
 		std::vector<boost::shared_ptr<Object>> objects;		//flexible safe pointers to objects --- should stay sorted from least to greatest
 		std::vector<ObjectGroup> groups;					//nesting object group vector this is named using name searchable

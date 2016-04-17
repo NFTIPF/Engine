@@ -37,25 +37,22 @@ public:
 
 
 
-	void setScrollSpeed(const sf::Vector2f& speed, const unsigned int& index);
-														//set the scroll speed of a particular layer
+	void setScrollSpeed(const sf::Vector2f& speed, const unsigned int& index);	//set the scroll speed of a particular layer
 
-	void setScrollSpeed(std::vector<const sf::Vector2f> scrollSpeeds);
-														//set the scroll speed of all layers; should start with 1 and descend
+	void setScrollSpeed(std::vector<const sf::Vector2f> scrollSpeeds);			//set the scroll speed of all layers; should start with 1 and descend
 
 
 
-	boost::shared_ptr<Layer> getLayerPtr(const unsigned int& index);
-														//gets a shared pointer to a layer
+	boost::shared_ptr<Layer> getLayerPtr(const unsigned int& index);			//gets a shared pointer to a layer
 
-	void setReferencePoint(sf::Vector2f& refPoint);		//sets the point that the layers will center on
+	boost::property_tree::ptree getLayerXML(const int& index);						//write layer to boost xml
+
+	void setReferencePoint(sf::Vector2f& refPoint);								//sets the point that the layers will center on
 
 
-	void setScrollBounds(std::vector<const double> bounds, const unsigned int& layerIndex);
-														//set all scroll bounds of a single layer
+	void setScrollBounds(std::vector<const double> bounds, const unsigned int& layerIndex);	//set all scroll bounds of a single layer
 
-	void setScrollBounds(std::vector<std::vector<const double>> boundVec);
-														//set all scroll bounds of all layers
+	void setScrollBounds(std::vector<std::vector<const double>> boundVec);	//set all scroll bounds of all layers
 
 
 
@@ -70,6 +67,7 @@ public:
 														//make the layers' scroll-locking dependent on a specific layer
 
 
+	void setupDraw();									//setup a draw before objects are drawn each frame
 
 	void draw(sf::RenderWindow& window);				//draws all of the layers
 

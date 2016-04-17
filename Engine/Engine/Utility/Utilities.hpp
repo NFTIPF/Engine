@@ -9,7 +9,7 @@
 namespace util
 {
 	/*
-	
+
 
 	std::string reverseString(const std::string& str);	//stack based string flipper
 
@@ -27,15 +27,28 @@ namespace util
 	double dmax(double& a, double& b);						//finds the greater of two doubles
 	double dmin(double& a, double& b);						//finds the lesser of two doubles
 	void dbound(double& a, const double& b, const double& c);
-															//bounds an double between two other doubles
+	//bounds an double between two other doubles
 
 
 	unsigned int uimax(unsigned int& a, unsigned int& b);	//finds the greater of two unsigned ints
 	unsigned int uimin(unsigned int& a, unsigned int& b);	//finds the greater of two nsigned ints
 	void uibound(unsigned int& a, const unsigned int& b, const unsigned int& c);
-															//bounds an unsigned int between two other unsigned ints
+	//bounds an unsigned int between two other unsigned ints
 	*/
 	//mins, maxes, bounds
+
+	inline float clamp(const float& in, const float& min, const float& max)
+	{
+		if (in < min)
+		{
+			return min;
+		}
+		else if (in > max)
+		{
+			return max;
+		}
+		return in;
+	};
 
 	inline void swapChars(char& a, char& b)
 	{
@@ -198,7 +211,7 @@ namespace util
 		{
 			toReturn += vec[i] + between;	//concatenate strings
 		}
-		toReturn = toReturn.substr(0, toReturn.size()-between.size());	//delete extra "between"
+		toReturn = toReturn.substr(0, toReturn.size() - between.size());	//delete extra "between"
 		return toReturn;
 	}
 
@@ -223,7 +236,6 @@ namespace util
 		}
 	}
 }
-
 
 
 

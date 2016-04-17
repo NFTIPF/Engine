@@ -11,6 +11,7 @@ Layer::Layer()
 	scrollLockX = Lockless;				//both scrollLocks are lockless
 	scrollLockY = Lockless;
 	trackLocking = false;				//trackLocking is false -- only true if all other layers' locking are dependent on this layer
+	//create();
 }
 
 Layer::~Layer()
@@ -32,6 +33,16 @@ void Layer::create()					//sets up the Layer -- only call after corners are set
 	view.setSize(boundBRCorner.x - boundTLCorner.x, boundBRCorner.y - boundTLCorner.x);					//seup the view
 	view.setCenter((boundBRCorner.x + boundTLCorner.x) / 2, (boundBRCorner.y + boundTLCorner.y) / 2);
 
+}
+
+boost::property_tree::ptree Layer::write()
+{
+	boost::property_tree::ptree ret;
+	ret.put("<xmlattr>.scrollx", scrollSpeed.x);
+	ret.put("<xmlattr>.scrolly", scrollSpeed.y);
+	ret.put("<xmlattr>.boundx", scrollBounds[2]);
+	ret.put("<xmlattr>.boundy", scrollBounds[3]);
+	return ret;
 }
 
 void Layer::setScrollSpeed(const sf::Vector2f& fspeed)

@@ -12,17 +12,47 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defines.hpp" />
+    <ClInclude Include="Editor.hpp" />
+    <ClInclude Include="EditorGUI.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Input\ControlSet.hpp" />
+    <ClInclude Include="Input\InputData.hpp" />
+    <ClInclude Include="Input\KeyboardData.hpp" />
+    <ClInclude Include="Input\MouseData.hpp" />
     <ClInclude Include="Layers\Layer.hpp" />
     <ClInclude Include="Layers\LayerManager.hpp" />
-    <ClInclude Include="MovingTestObject.hpp" />
+    <ClInclude Include="MenuStuff\AppSprite.hpp" />
+    <ClInclude Include="MenuStuff\BasicButton.hpp" />
+    <ClInclude Include="MenuStuff\Menu.hpp" />
+    <ClInclude Include="MenuStuff\MenuElement.hpp" />
+    <ClInclude Include="MenuStuff\MenuElementList.hpp" />
+    <ClInclude Include="MenuStuff\MenuIncludes.hpp" />
+    <ClInclude Include="MenuStuff\MenuManager.hpp" />
+    <ClInclude Include="MenuStuff\MenuSprite.hpp" />
+    <ClInclude Include="MenuStuff\MultiMenuSprite.hpp" />
+    <ClInclude Include="MenuStuff\MultiTextBox.hpp" />
+    <ClInclude Include="MenuStuff\SingleTextBox.hpp" />
+    <ClInclude Include="MenuStuff\TableEntry\EntryTable.hpp" />
+    <ClInclude Include="MenuStuff\TableEntry\EntryTextBox.hpp" />
+    <ClInclude Include="MenuStuff\TableEntry\TablePair.hpp" />
     <ClInclude Include="NameSearchable\NameSearchable.hpp" />
+    <ClInclude Include="Objects\Graphics\Animation\Animation.hpp" />
+    <ClInclude Include="Objects\Graphics\Graphics.hpp" />
+    <ClInclude Include="Objects\MovingTestObject.hpp" />
     <ClInclude Include="Objects\Object.hpp" />
+    <ClInclude Include="Objects\ObjectClasses\Platform.hpp" />
     <ClInclude Include="Objects\ObjectGroup.hpp" />
     <ClInclude Include="Objects\ObjectManager.hpp" />
+    <ClInclude Include="Objects\Physics\Collision\Collidable.hpp" />
+    <ClInclude Include="Objects\Physics\Collision\Collider.hpp" />
+    <ClInclude Include="Objects\Physics\Collision\CollisionData.hpp" />
+    <ClInclude Include="Objects\Physics\Collision\HitBox.hpp" />
+    <ClInclude Include="Objects\Physics\Movement\PhysicsObject.hpp" />
+    <ClInclude Include="Objects\Physics\Physics.hpp" />
+    <ClInclude Include="Objects\Squirrel.hpp" />
+    <ClInclude Include="Objects\TestObject.hpp" />
     <ClInclude Include="ResourceManager\ResourceGroup.hpp" />
     <ClInclude Include="ResourceManager\ResourceManager.hpp" />
-    <ClInclude Include="TestObject.hpp" />
     <ClInclude Include="Utility\Downcast.hpp" />
     <ClInclude Include="Utility\INIParser.hpp" />
     <ClInclude Include="Utility\Logger.hpp" />
@@ -31,18 +61,44 @@
     <ClInclude Include="Utility\XMLParser.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="EditorGUI.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Input\ControlSet.cpp" />
+    <ClCompile Include="Input\InputData.cpp" />
+    <ClCompile Include="Input\KeyboardData.cpp" />
+    <ClCompile Include="Input\MouseData.cpp" />
     <ClCompile Include="Layers\Layer.cpp" />
     <ClCompile Include="Layers\LayerManager.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MovingTestObject.cpp" />
+    <ClCompile Include="MenuStuff\AppSprite.cpp" />
+    <ClCompile Include="MenuStuff\BasicButton.cpp" />
+    <ClCompile Include="MenuStuff\Menu.cpp" />
+    <ClCompile Include="MenuStuff\MenuElement.cpp" />
+    <ClCompile Include="MenuStuff\MenuManager.cpp" />
+    <ClCompile Include="MenuStuff\MenuSprite.cpp" />
+    <ClCompile Include="MenuStuff\MultiMenuSprite.cpp" />
+    <ClCompile Include="MenuStuff\MultiTextBox.cpp" />
+    <ClCompile Include="MenuStuff\SingleTextBox.cpp" />
+    <ClCompile Include="MenuStuff\TableEntry\EntryTable.cpp" />
+    <ClCompile Include="MenuStuff\TableEntry\EntryTextBox.cpp" />
+    <ClCompile Include="MenuStuff\TableEntry\TablePair.cpp" />
     <ClCompile Include="NameSearchable\NameSearchable.cpp" />
+    <ClCompile Include="Objects\Graphics\Animation\Animation.cpp" />
+    <ClCompile Include="Objects\MovingTestObject.cpp" />
     <ClCompile Include="Objects\Object.cpp" />
+    <ClCompile Include="Objects\ObjectClasses\Platform.cpp" />
     <ClCompile Include="Objects\ObjectGroup.cpp" />
     <ClCompile Include="Objects\ObjectManager.cpp" />
+    <ClCompile Include="Objects\Physics\Collision\Collidable.cpp" />
+    <ClCompile Include="Objects\Physics\Collision\Collider.cpp" />
+    <ClCompile Include="Objects\Physics\Collision\CollisionData.cpp" />
+    <ClCompile Include="Objects\Physics\Collision\HitBox.cpp" />
+    <ClCompile Include="Objects\Physics\Movement\PhysicsObject.cpp" />
+    <ClCompile Include="Objects\Squirrel.cpp" />
+    <ClCompile Include="Objects\TestObject.cpp" />
     <ClCompile Include="ResourceManager\ResourceGroup.cpp" />
     <ClCompile Include="ResourceManager\ResourceManager.cpp" />
-    <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="Utility\Downcast.cpp" />
     <ClCompile Include="Utility\INIParser.cpp" />
     <ClCompile Include="Utility\Logger.cpp" />
@@ -93,6 +149,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\local\boost_1_59_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SuppressStartupBanner>false</SuppressStartupBanner>
+      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

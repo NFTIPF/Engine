@@ -1,0 +1,3 @@
+shade: black, 15 opacity
+
+highlight: white, 15 opacity
