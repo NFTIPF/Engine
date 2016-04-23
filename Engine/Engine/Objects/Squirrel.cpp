@@ -70,8 +70,8 @@ void Squirrel::update(InputData& inpData)
 	}
 	if (inpData.isKeyHeld(sf::Keyboard::Up))
 	{
-		applyForce(sf::Vector2f(0, -moveForce));
-		if (false)//jumpTimer.getElapsedTime().asSeconds() > jumpTime*4 || jumping)
+		//applyForce(sf::Vector2f(0, -moveForce));
+		if (jumpTimer.getElapsedTime().asSeconds() > jumpTime*4 || jumping)
 		{
 			float time;
 			if (!jumping)
@@ -117,7 +117,7 @@ void Squirrel::update(InputData& inpData)
 	}
 	if (inpData.isKeyHeld(sf::Keyboard::Down))
 	{
-		applyForce(sf::Vector2f(0, moveForce));
+		//applyForce(sf::Vector2f(0, moveForce));
 		falling = true;
 	}
 	else
@@ -215,16 +215,12 @@ boost::property_tree::ptree Squirrel::write()
 
 bool Squirrel::physicalCollide(CollisionData& data, bool isGhosting)
 {
-	if (!data.getCollidedHitbox()->hasBottom())
-	{
-		std::cout << "YA";
-	}
 	std::tuple<sf::Vector2f, sf::Vector2f, int> response = Collider::getKineticResponseDoublePolygon(velocity, hitbox.get(), data.getCollidedHitbox()->get(), false);
 
 
 	colliding = std::get<2>(response);
 
-
+	/*
 	if (velocity.y < -.1 && !data.getCollidedHitbox()->hasBottom())
 	{
 		//dont apply transform
@@ -241,12 +237,12 @@ bool Squirrel::physicalCollide(CollisionData& data, bool isGhosting)
 		colliding = false;
 		return true;
 	}
-	else
-	{
+	*/
+	//else
+	//{
 		setPosition(position + std::get<1>(response));
 		setVelocity(std::get<1>(response)+velocity);
-		return false;
-	}
+	//}
 
 	hitbox.updatePosition();
 
@@ -258,6 +254,7 @@ bool Squirrel::physicalCollide(CollisionData& data, bool isGhosting)
 	//std::cout <<std::endl;
 	//std::cout << colliding << ": " << std::get<0>(response).x << ", " << std::get<0>(response).y << ": " << std::get<1>(response).x << ", " << std::get<1>(response).y << std::endl;
 	//std::cout << "vel:" << velocity.x << ", " << velocity.y << std::endl;
+	return true;
 }
 
 bool Squirrel::pickupCollide(boost::shared_ptr<Pickup>& pickup)

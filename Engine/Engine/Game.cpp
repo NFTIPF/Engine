@@ -503,7 +503,7 @@ void Game::updateCollidables()
 void Game::doCollisions()
 {
 	boost::shared_ptr<Collidable> pcol = (boost::shared_ptr<Collidable>)player;
-	/*
+	
 	CollisionData result = Collider::collide(pcol, collidableMap[104]);	//cyles through platforms
 	while(result.collided())
 	{
@@ -512,12 +512,12 @@ void Game::doCollisions()
 		CollisionData res = Collider::collide(pcol, collidableMap[104]);
 		result = res;
 	}
-	*/
-
+	
+	/*
 	for (int platIt = 0; platIt < collidableMap[104].size(); platIt++)
 	{
 		CollisionData res = Collider::collide(pcol, collidableMap[104][platIt]);
-		if (false)//res.collided())
+		if (res.collided())
 		{
 			if (player->physicalCollide(res, ghosting))	//if it got ghosting
 			{
@@ -530,7 +530,7 @@ void Game::doCollisions()
 
 		}
 	}
-	
+	*/
 	for (int pickIt = 0; pickIt < collidableMap[105].size(); pickIt++)	//cycles through pickups
 	{
 		if (Collider::collide(pcol, collidableMap[105][pickIt]).collided())

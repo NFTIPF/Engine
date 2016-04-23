@@ -3,7 +3,7 @@
    <layer scrollx="0" scrolly="0" boundx="13920" boundy="8080" z="0">
       <chunk index="1">
          <object>
-            <systemType>Dust</systemType>
+            <systemType>Leaves</systemType>
             <type>ParticleSystem</type>
          </object>
       </chunk>
@@ -12,11 +12,20 @@
       <chunk index="1">	  	  
          <object>
             <position x="825" y="550" />
-            <size x="500" y="500" />
+            <size x="500" y="200" />
             <texture>platformMID1</texture>
             <type>Platform</type>
 			<hasBottom>0</hasBottom>
+			<HBFrac x="1" y=".4"/>
          </obect>		 
+		 <object>
+            <position x="1325" y="550" />
+            <size x="500" y="200" />
+            <texture>platformMID3</texture>
+            <type>Platform</type>
+			<hasBottom>0</hasBottom>
+			<HBFrac x="1" y=".4"/>
+         </object>
 		 <object>
             <position x="0" y="1760" />
             <size x="3000" y="500" />
@@ -66,13 +75,6 @@
             <type>Platform</type>
          </object>
          <object>
-            <position x="1325" y="550" />
-            <size x="500" y="500" />
-            <texture>platformMID3</texture>
-            <type>Platform</type>
-			<hasBottom>0</hasBottom>
-         </object>
-         <object>
             <position x="1600" y="300" />
             <size x="1200" y="1500" />
             <texture>tree2</texture>
@@ -102,7 +104,7 @@
             <idle>idle</idle>
             <fps>10</fps>
             <moveSpeed>70</moveSpeed>
-            <position x="900" y="400" />
+            <position x="900" y="800" />
             <size x="600" y="200" />
             <frameSize x="96" y="32" />
             <type>Squirrel</type>
@@ -143,7 +145,15 @@
          </object>
       </chunk>
    </layer>
-   <layer scrollx="0.300000012" scrolly="0.300000012" boundx="13920" boundy="8080" z="3">
+      <layer scrollx="0" scrolly="0" boundx="13920" boundy="8080" z="3">
+      <chunk index="1">
+         <object>
+            <systemType>Heavy_Rain</systemType>
+            <type>ParticleSystem</type>
+         </object>
+      </chunk>
+   </layer>
+   <layer scrollx="0.200000012" scrolly="0.200000012" boundx="13920" boundy="8080" z="4">
       <chunk index="1">
 	  <object>
             <position x="1000" y="600" />
@@ -159,11 +169,11 @@
          </object>
       </chunk>
    </layer>
-   <layer scrollx="0.100000001" scrolly="0.300000012" boundx="13920" boundy="8080" z="4">
+   <layer scrollx="0.0500000001" scrolly="0.10000012" boundx="13920" boundy="8080" z="5">
       <chunk index="1">
 	  <object>
-            <position x="0" y="0" />
-            <size x="5000" y="5000" />
+            <position x="1500" y="1000" />
+            <size x="3000" y="3000" />
             <texture>sky</texture>
             <type>TestObject</type>
          </object>

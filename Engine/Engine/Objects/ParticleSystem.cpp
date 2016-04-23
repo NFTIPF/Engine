@@ -75,6 +75,7 @@ void ParticleSystem::update(InputData& inputData)
 		sf::Vector2f velocity = std::get<1>(p);
 		sf::Vector2f s = sf::Vector2f(sign(velocity.x), sign(velocity.y));
 		sf::Vector2f air = sf::Vector2f(s.x * velocity.x * velocity.x * AIR, s.y * velocity.y * (velocity.y/10) * AIR);	//calculating air resistance
+		air += sf::Vector2f(0, speed);
 		std::get<1>(p) -= air;
 
 	}
@@ -88,7 +89,7 @@ void ParticleSystem::load(boost::property_tree::ptree& dataTree, ResourceManager
 {
 	XMLParser parser;
 	parser.readValue<std::string>("systemType", systemType, dataTree);
-	
+	speed = 0;
 	INIParser reader("ParticleSystems.ini");	//load configuration file for particle systems
 
 	reader.setSection(systemType);
@@ -108,6 +109,7 @@ void ParticleSystem::load(boost::property_tree::ptree& dataTree, ResourceManager
 	reader.readValue<float>("SpawnArea_Y", spawnArea.y);
 	reader.readValue<int>("NumParticles", numParticles);
 	reader.readValue<bool>("Moving", moving);
+	reader.readValue<float>("Speed", speed);
 
 	sf::Texture* particleTexture = rMan.getTexturePointerByName(textureName);	//retrive particle texture name
 

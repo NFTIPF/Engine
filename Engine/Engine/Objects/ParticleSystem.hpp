@@ -61,5 +61,6 @@ namespace objects
 		double lastFrameElapsedTime;
 		double genFrameTime;
 		int newParticleNumber;
+		float speed;
 	};
 }
