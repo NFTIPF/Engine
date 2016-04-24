@@ -269,7 +269,7 @@ double Collider::distSq(const sf::Vector2f& veca, const sf::Vector2f& vecb)
 	return ((double)((veca.x - vecb.x) * (veca.x - vecb.x) + (veca.y - vecb.y) * (veca.y - vecb.y)));
 }
 
-std::tuple<sf::Vector2f, sf::Vector2f, bool> Collider::getKineticResponseDoublePolygon(sf::Vector2f vel, const polygon& polyA, const polygon& polyB)
+std::tuple<sf::Vector2f, sf::Vector2f, unsigned int> Collider::getKineticResponseDoublePolygon(sf::Vector2f vel, const polygon& polyA, const polygon& polyB, const bool& hollow)
 {
 	if (fabs(vel.y) > 20)
 	{
@@ -342,18 +342,25 @@ std::tuple<sf::Vector2f, sf::Vector2f, bool> Collider::getKineticResponseDoubleP
 
 	if (!foundFirst)
 	{
-		return std::make_tuple(sf::Vector2f(0,0), sf::Vector2f(0,0), false);
+		return std::make_tuple(sf::Vector2f(0,0), sf::Vector2f(0,0), 0);
 	}
 	sf::Vector2f corDisp = firstPoi - critCorner;
 
-	//const double corMag = sqrt(magSq(corDisp));
-
-	//corDisp.x += corDisp.x / corMag * knockback;
-	//corDisp.y += corDisp.y / corMag * knockback;
-
-	
 
 	const sf::Vector2f critLineVec = critLine2 - critLine1; //move line to origin
+	
+
+	
+	if (hollow && critLineVec.x != 0)
+	{
+		double critSlope = critLineVec.y / critLineVec.x;
+		if ((fabs(critSlope) < 1) && (signMultiplier * (critCorner.y - vel.y) > signMultiplier * (firstPoi.y)))
+		{
+			return std::make_tuple(sf::Vector2f(0,0), sf::Vector2f(0,0), 2);
+		}
+	}
+
+
 	const sf::Vector2f groundVel = -corDisp;
 
 	const double critMagSq = magSq(critLineVec);
@@ -379,14 +386,7 @@ std::tuple<sf::Vector2f, sf::Vector2f, bool> Collider::getKineticResponseDoubleP
 	knockbackVec.x = outwardNormal.x / normalMag * knockback;
 	knockbackVec.y = outwardNormal.y / normalMag * knockback;
 
-	//if (knockbackVec.y == 0)
-	//{
-	//	knockbackVec.y = .0001;
-	//}
-	//if (knockbackVec.x == 0)
-	//{
-	//	//knockbackVec.x = .0001;
-	//}
+
 
 	normalVelocity += knockbackVec;
 

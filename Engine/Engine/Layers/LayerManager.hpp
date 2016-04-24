@@ -3,6 +3,7 @@
 #include "../Utility/Logger.hpp"
 #include <vector>
 #include "../Utility/Utilities.hpp"
+#include <iostream>
 
 
 class LayerManager										//holds and manages layers of graphics -- useful for parallax
@@ -13,9 +14,9 @@ public:
 
 	LayerManager(const int& amt);						//overloaded to dictate amount of layers at creation
 
-	LayerManager(sf::Vector2f& refPoint);				//overloaded to specify the reference point at creation
+	LayerManager(sf::Vector2f* refPoint);				//overloaded to specify the reference point at creation
 
-	LayerManager(sf::Vector2f& refPoint, const unsigned int& amt);
+	LayerManager(sf::Vector2f* refPoint, const unsigned int& amt);
 														//overloaded to specify amount of layers and refernce point
 
 	~LayerManager();									//nothing in destructor
@@ -47,7 +48,7 @@ public:
 
 	boost::property_tree::ptree getLayerXML(const int& index);						//write layer to boost xml
 
-	void setReferencePoint(sf::Vector2f& refPoint);								//sets the point that the layers will center on
+	void setReferencePoint(sf::Vector2f* refPoint);								//sets the point that the layers will center on
 
 
 	void setScrollBounds(std::vector<const double> bounds, const unsigned int& layerIndex);	//set all scroll bounds of a single layer

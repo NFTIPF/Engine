@@ -35,6 +35,7 @@ void DropoffZone::load(boost::property_tree::ptree& dataTree, ResourceManager& r
 	position.y = parser.readValue<float>("position.<xmlattr>.y", dataTree);
 	size.x = parser.readValue<float>("size.<xmlattr>.x", dataTree);
 	size.y = parser.readValue<float>("size.<xmlattr>.y", dataTree);
+	capacity = parser.readValue<int>("capacity", dataTree);
 
 	if (displaying)
 	{
@@ -59,6 +60,7 @@ boost::property_tree::ptree DropoffZone::write()
 	xml.put("position.<xmlattr>.y", position.y);
 	xml.put("size.<xmlattr>.x", size.x);
 	xml.put("size.<xmlattr>.y", size.y);
+	xml.put("capacity", capacity);
 
 	return xml;
 }
@@ -80,13 +82,17 @@ boost::shared_ptr<objects::Pickup> DropoffZone::getNextPickup()
 
 bool DropoffZone::dropoff(boost::shared_ptr<objects::Pickup> p)
 {
+
+
 	if (dropoffClock.getElapsedTime().asSeconds() > minDropTime)
 	{
-		boost::shared_ptr<objects::Pickup> pick;
-		//pickups.push_back(pick);
-		//pickups.push_back(p);
-		dropoffClock.restart();
-		return 1;
+
+		if (pickups.size() < capacity)
+		{
+			pickups.push_back(p);
+			dropoffClock.restart();
+			return 1;
+		}
 	}
 	return 0;
 }

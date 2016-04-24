@@ -2,6 +2,7 @@
 
 Slider::Slider(const sf::Vector2f& p, sf::Texture* bg, sf::Texture* indicator, sf::Font* newFont, double M, double m, double start, const std::string& t, const unsigned int& fcharSize)
 {
+	requiresMouseData = true;
 	textString = t;
 	charSize = fcharSize;
 	currentValue = start;
@@ -41,11 +42,10 @@ void Slider::updateButtonState(InputData& inpData)
 {
 	const sf::Vector2f mousePos = inpData.getMousePosition() - lastDrawPosition;
 
-	const unsigned int leftData = inpData.getLeftData();
 
-	if (mousePos.x > bgTLPos.x && mousePos.x < bgBRPos.x && mousePos.y > bgTLPos.y && mousePos.y < bgBRPos.y)
+	if (mousePos.x > bgTLPos.x && mousePos.x < bgBRPos.x && mousePos.y > bgTLPos.y && mousePos.y < bgBRPos.y && inpData.getLeftData() == MouseData::Held)
 	{
-		slSprite.setPosition(mousePos);
+		slSprite.setPosition(sf::Vector2f(mousePos.x, position.y));
 
 		currentValue = (mousePos.x - bgTLPos.x) / cordScale + minValue;
 

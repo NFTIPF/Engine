@@ -93,6 +93,11 @@ boost::shared_ptr<Object> ObjectGroup::getObject(const int& ID, const bool& tree
 {
 	if (objects.size() != 0)
 	{
+		/*
+		if (objects.size() > 5)
+		{
+			std::cout << "<<<<<<" << std::endl;
+		}
 		forceObjectSort();
 
 		int position;
@@ -131,6 +136,14 @@ boost::shared_ptr<Object> ObjectGroup::getObject(const int& ID, const bool& tree
 			return NULL;
 		}
 	AVOID_ERRORS:;
+		*/
+		for (unsigned int i = 0; i < objects.size(); i++)
+		{
+			if (objects[i]->getID() == ID)
+			{
+				return objects[i];
+			}
+		}
 	}
 	if (tree)	//only do this if the entire tree should be searched for object
 	{

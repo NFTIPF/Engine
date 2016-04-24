@@ -6,10 +6,14 @@ Animation::Animation()
 	lastFrameTime = 0;
 	texCoords = sf::VertexArray(sf::Quads, 4);
 	currentSheetPosition = sf::Vector2f(1, 1);
+	frozen = false;
+	setFrameFreeze(false);
 }
 
 Animation::Animation(sf::Texture* newSpriteSheet, const sf::Vector2f& newFrameSize)
 {
+	frozen = false;
+	setFrameFreeze(false);
 	setSpriteSheet(newSpriteSheet);
 	setFrameSize(newFrameSize);
 	calcFps();
@@ -20,6 +24,8 @@ Animation::Animation(sf::Texture* newSpriteSheet, const sf::Vector2f& newFrameSi
 
 Animation::Animation(sf::Texture* newSpriteSheet, const sf::Vector2f& newFrameSize, const sf::Vector2f& newDisplaySize, const int& newFps)
 {
+	frozen = false;
+	setFrameFreeze(false);
 	setSpriteSheet(newSpriteSheet);
 	setFrameSize(newFrameSize);
 	setDisplaySize(newDisplaySize);
@@ -30,6 +36,8 @@ Animation::Animation(sf::Texture* newSpriteSheet, const sf::Vector2f& newFrameSi
 
 Animation::Animation(sf::Texture* newSpriteSheet, const sf::Vector2f& newFrameSize, const sf::Vector2f& newDisplaySize, const int& newFps, const sf::Vector2f& position)
 {
+	frozen = false;
+	setFrameFreeze(false);
 	setSpriteSheet(newSpriteSheet);
 	setFrameSize(newFrameSize);
 	setDisplaySize(newDisplaySize);
@@ -102,33 +110,63 @@ void Animation::drawNextFrame(sf::RenderTexture& texture)
 	texture.draw(texCoords, spriteSheet);
 }
 
-//PROTECTED FUNCTIONS
-void Animation::prepareNextFrame()
+void Animation::setFrameFreeze(const bool& onoff)
 {
-	if (currentSheetPosition.x < sheetSize.x)
-	{
-		for (int i = 0; i < texCoords.getVertexCount(); i++)
-		{
-			texCoords[i].texCoords.x += frameSize.x;
-		}
-		currentSheetPosition.x++;
-	}
-	else if (currentSheetPosition.y < sheetSize.y)
-	{
-		for (int i = 0; i < texCoords.getVertexCount(); i++)
-		{
-			texCoords[i].texCoords.y += frameSize.y;
-		}
-		currentSheetPosition.y++;
-	}
-	else
+	freezeFrame = onoff;
+}
+
+void Animation::reset()
+{
+	if (freezeFrame)
 	{
 		currentSheetPosition = sf::Vector2f(1, 1);	//reset to first texture
 		texCoords[0].texCoords = sf::Vector2f(frameSize.x, frameSize.y);		//bottom right
 		texCoords[1].texCoords = sf::Vector2f(0, frameSize.y);					//bottom left
 		texCoords[2].texCoords = sf::Vector2f(0, 0);							//top left
 		texCoords[3].texCoords = sf::Vector2f(frameSize.x, 0);					//top right
+		frozen = false;
 	}
+}
+
+//PROTECTED FUNCTIONS
+void Animation::prepareNextFrame()
+{
+	if (!frozen)
+	{
+		if (currentSheetPosition.x < sheetSize.x)
+		{
+			for (int i = 0; i < texCoords.getVertexCount(); i++)
+			{
+				texCoords[i].texCoords.x += frameSize.x;
+			}
+			currentSheetPosition.x++;
+		}
+		else if (currentSheetPosition.y < sheetSize.y)
+		{
+			for (int i = 0; i < texCoords.getVertexCount(); i++)
+			{
+				texCoords[i].texCoords.y += frameSize.y;
+			}
+			currentSheetPosition.y++;
+		}
+		else
+		{
+			if (!freezeFrame)
+			{
+				currentSheetPosition = sf::Vector2f(1, 1);	//reset to first texture
+				texCoords[0].texCoords = sf::Vector2f(frameSize.x, frameSize.y);		//bottom right
+				texCoords[1].texCoords = sf::Vector2f(0, frameSize.y);					//bottom left
+				texCoords[2].texCoords = sf::Vector2f(0, 0);							//top left
+				texCoords[3].texCoords = sf::Vector2f(frameSize.x, 0);					//top right
+			}
+			else
+			{
+				frozen = true;
+			}
+
+		}
+	}
+
 }
 
 void Animation::updatePosition()

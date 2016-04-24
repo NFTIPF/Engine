@@ -21,7 +21,7 @@ public:
 	static CollisionData collide(HitBox& b1, std::vector<HitBox*>& b2);
 
 	//static std::pair<sf::Vector2f, bool> preemptive
-	static std::tuple<sf::Vector2f, sf::Vector2f, bool> getKineticResponseDoublePolygon(sf::Vector2f vel, const polygon& polyA, const polygon& polyB);
+	static std::tuple<sf::Vector2f, sf::Vector2f, unsigned int> getKineticResponseDoublePolygon(sf::Vector2f vel, const polygon& polyA, const polygon& polyB, const bool& isHollow=false);
 
 
 

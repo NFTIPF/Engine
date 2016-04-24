@@ -43,6 +43,7 @@
     <ClInclude Include="Objects\Graphics\Graphics.hpp" />
     <ClInclude Include="Objects\Graphics\Texture.hpp" />
     <ClInclude Include="Objects\Graphics\TiledTexture.hpp" />
+    <ClInclude Include="Objects\Home.hpp" />
     <ClInclude Include="Objects\MovingTestObject.hpp" />
     <ClInclude Include="Objects\Object.hpp" />
     <ClInclude Include="Objects\ObjectClasses\Pickups\Pickup.hpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="Objects\Graphics\Animation\Animation.cpp" />
     <ClCompile Include="Objects\Graphics\Texture.cpp" />
     <ClCompile Include="Objects\Graphics\TiledTexture.cpp" />
+    <ClCompile Include="Objects\Home.cpp" />
     <ClCompile Include="Objects\MovingTestObject.cpp" />
     <ClCompile Include="Objects\Object.cpp" />
     <ClCompile Include="Objects\ObjectClasses\Pickups\Pickup.cpp" />

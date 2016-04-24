@@ -22,7 +22,9 @@ namespace objects
 
 		bool dropoff(boost::shared_ptr<objects::Pickup> p);
 	private:
-		std::vector<boost::shared_ptr<objects::Pickup> > pickups;
+
+		int capacity;
+		std::vector<boost::shared_ptr<Pickup>> pickups;
 
 		Texture tex;
 		std::string textureName;

@@ -4,6 +4,7 @@
 #include "Object.hpp"
 #include "Physics\Collision\Collidable.hpp"
 #include "Graphics/Texture.hpp"
+#include "Graphics\TiledTexture.hpp"
 
 
 namespace objects
@@ -33,14 +34,19 @@ namespace objects
 
 	private:
 		Texture tex;
+		TiledTexture tTex;
 
 		sf::Vector2f getTlCorner();
 		sf::Vector2f getBRCorner();
 
 		sf::Vector2f size;
 
+		bool tiled;
+		sf::Vector2f setSize;
+
 		std::string textureName;
 
+		sf::Vector2f HBFrac;
 
 	};
 

@@ -23,8 +23,9 @@ namespace objects
 		void load(boost::property_tree::ptree& dataTree, ResourceManager& recMan);
 		boost::property_tree::ptree write();
 
-		void physicalCollide(CollisionData& data);
+		bool physicalCollide(CollisionData& data, bool isGhosting); //returns if ghosting
 		bool pickupCollide(boost::shared_ptr<objects::Pickup>& p);	//parses collision with pickup objects returns true if object is used/picked up
+
 		void dropoffCollide(boost::shared_ptr<objects::DropoffZone>& d);
 	private:
 		Animation RR;
@@ -32,7 +33,8 @@ namespace objects
 		Animation idle;
 		Animation TL; //turn left
 		Animation TR; //turn right
-		Animation JUMP;
+		Animation JR;
+		Animation JL;
 
 		int fps;
 
@@ -42,7 +44,8 @@ namespace objects
 		std::string idleSSName;
 		std::string TLName;
 		std::string TRName;
-		std::string JumpName;
+		std::string JLName;
+		std::string JRName;
 
 		float moveForce;
 		float jumpForce;
@@ -52,7 +55,7 @@ namespace objects
 
 		int nutCapacity;			//maximum nuts that can be carried
 
-		bool onGround;
+		bool falling;
 		float airborneMultiplier;	//multiplier for airborne movement
 
 		sf::Vector2f lastAcceleration;

@@ -17,13 +17,13 @@ LayerManager::LayerManager(const int& amt)							//determines amount of layers o
 	setLayerAmount(amt);
 }
 
-LayerManager::LayerManager(sf::Vector2f& refPoint)					//determines reference point on contruction
+LayerManager::LayerManager(sf::Vector2f* refPoint)					//determines reference point on contruction
 {
 	basicSetup();
 	setReferencePoint(refPoint);
 }
 
-LayerManager::LayerManager(sf::Vector2f& refPoint, const unsigned int& amt)	//conjugation of above two constructors
+LayerManager::LayerManager(sf::Vector2f* refPoint, const unsigned int& amt)	//conjugation of above two constructors
 {
 	basicSetup();
 	setLayerAmount(amt);
@@ -53,6 +53,7 @@ void  LayerManager::createLayers()									//creates all layers -- must call som
 	for (unsigned int i = 0; i < layers.size(); i++)
 	{
 		layers[i]->create();
+		//layers[i]->setViewCenter(*referencePoint);
 	}
 }
 
@@ -174,10 +175,10 @@ boost::property_tree::ptree LayerManager::getLayerXML(const int& layer)
 }
 
 
-void LayerManager::setReferencePoint(sf::Vector2f& refPoint)
+void LayerManager::setReferencePoint(sf::Vector2f* refPoint)
 {
-	referencePoint = &refPoint;										//set the reference point
-	oldReferencePointValue = refPoint;								//set the old refernce point value, too
+	referencePoint = refPoint;										//set the reference point
+	oldReferencePointValue = *refPoint;								//set the old refernce point value, too
 }
 
 
@@ -185,6 +186,7 @@ void  LayerManager::setupDraw()										//pieces of draw that function better i
 {
 
 	sf::Vector2f distance = *referencePoint - oldReferencePointValue;	//distance from the reference point to where it used to be
+	std::cout << distance.x << ", " << distance.y << std::endl;
 
 	for (unsigned int i = 0; i < layers.size(); i++)
 	{

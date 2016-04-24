@@ -28,6 +28,9 @@ public:
 
 	void feather(const bool& onoff, const int& amount = 2);
 	bool isFeather();
+
+	bool hasBottom();
+	void setHasBottom(const bool& bot);
 protected:
 	
 	sf::Vector2f lastPosition;
@@ -37,6 +40,7 @@ protected:
 	std::vector<sf::Vector2f> hitbox;
 
 	bool feathered;
+	bool bottomed;
 
 };
 

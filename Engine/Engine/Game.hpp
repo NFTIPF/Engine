@@ -32,7 +32,7 @@
 #include "Objects/Platform.hpp"
 #include "Objects/Physics/Collision/Collidable.hpp"
 #include "Objects\Physics\Collision\Collider.hpp"
-#include "Objects\ObjectClasses\Pickups\PickupZone.hpp"
+#include "Objects\Home.hpp"
 #include "Objects\ParticleSystem.hpp"
 
 
@@ -101,6 +101,7 @@ protected:
 	void updateCollidables();
 	void doCollisions();
 
+	int ghosting;	//id of ghosting platform
 	boost::shared_ptr<objects::Squirrel> player;
 	boost::shared_ptr<objects::ParticleSystem> part;
 

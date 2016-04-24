@@ -57,7 +57,9 @@ public:
 
 	std::pair<sf::Vector2f, sf::Vector2f> getWindowCorners();	//first is top left and second is bottom right
 
-	sf::Vector2f Layer::getViewCenter();
+	void setViewCenter(const sf::Vector2f& viewCent);
+
+	sf::Vector2f getViewCenter();
 
 	void interpretViewPos(const sf::Vector2f& scrollDist);	//moves the view based on a position entered -- this is scrolling
 

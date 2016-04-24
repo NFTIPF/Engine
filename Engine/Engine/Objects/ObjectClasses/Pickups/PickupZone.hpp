@@ -24,12 +24,13 @@ namespace objects
 
 		void changeSeason(const std::string& newSeason);
 
+		void regeneratePickups();
 		void generatePickup();
-
+		void createDistribution();
 
 	private:
 
-		void createDistribution();
+
 		bool isInBounds(const int& val, const std::pair<int, int>& bound);
 
 		bool displaying;
@@ -44,7 +45,7 @@ namespace objects
 		double xValRight;
 		double thickness;
 
-
+		int maxNuts;
 		
 
 		sf::Vector2f position;

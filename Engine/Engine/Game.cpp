@@ -195,6 +195,7 @@ void Game::update()
 {
 
 	doChunks();
+	updateCollidables();
 	player->update(inpData);
 	for (int zoneIt = 0; zoneIt < zones.size(); zoneIt++)
 	{
@@ -345,6 +346,7 @@ void Game::loadObjects()
 	objMan.addPrototype<objects::PickupZone>("PickupZone");
 	objMan.addPrototype<objects::ParticleSystem>("ParticleSystem");
 	objMan.addPrototype<objects::DropoffZone>("DropoffZone");
+	objMan.addPrototype<objects::Home>("Home");
 }
 
 void Game::loadMap()
@@ -397,13 +399,13 @@ void Game::loadMap()
 	}
 
 
-	tmpCenter = sf::Vector2f(500, 500);							//starting point of reference
-
 	player = util::downcast<objects::Squirrel>(objMan.getObject(1030001));
-	layMan.setReferencePoint(*player->getPosition());						//make sure the layers reference the point
+	layMan.setReferencePoint(player->getPosition());						//make sure the layers reference the point
+
+	const sf::Vector2f squirrelPos = *player->getPosition();
 	part = util::downcast<objects::ParticleSystem>(objMan.getObject(1070001));
 	part->setPosition(*player->getPosition());
-
+	
 	for (int i = 0; i < numLayers; i++)
 	{
 		std::string layerNumber = "1";	//default is 1
@@ -419,6 +421,8 @@ void Game::loadMap()
 		parser.readValue<float>("<xmlattr>.boundy", bounds.y, layers[0][i]);
 
 		layMan.setScrollBounds({ 0, 0, bounds.x, bounds.y}, i);
+
+		const sf::Vector2f layerCenter = sf::Vector2f(windowPtr->getSize().x / 2, windowPtr->getSize().y / 2);
 		layMan.setCorners(sf::Vector2f(0, 0), (sf::Vector2f)windowPtr->getSize(), i);
 		layMan.getLayerPtr(i)->setScrollBoundedness(true);
 
@@ -468,7 +472,8 @@ void Game::organizeObjects()
 	for (unsigned int i = 0; i < zones.size(); i++)
 	{
 		zones[i]->setManagerPtrs(recMan, objMan);
-		zones[i]->generatePickup();
+		zones[i]->createDistribution();
+		zones[i]->regeneratePickups();
 	}
 	
 }
@@ -480,7 +485,7 @@ void Game::updateCollidables()
 	{
 		for (int i = lastCollidablesSize; i < IDS.size(); i++)
 		{
-			int typeID = IDS[i] / 100000;
+			int typeID = IDS[i] / 10000;
 			if (typeID == 104)
 			{
 				collidableMap[104].push_back(util::downcast<objects::Platform>(objMan.getObject(IDS[i])));
@@ -492,20 +497,40 @@ void Game::updateCollidables()
 
 			}
 		}
+		lastCollidablesSize = IDS.size();
 	}
 }
 void Game::doCollisions()
 {
 	boost::shared_ptr<Collidable> pcol = (boost::shared_ptr<Collidable>)player;
+	
 	CollisionData result = Collider::collide(pcol, collidableMap[104]);	//cyles through platforms
 	while(result.collided())
 	{
-		player->physicalCollide(result);
+		player->physicalCollide(result, false);
 
 		CollisionData res = Collider::collide(pcol, collidableMap[104]);
 		result = res;
 	}
+	
+	/*
+	for (int platIt = 0; platIt < collidableMap[104].size(); platIt++)
+	{
+		CollisionData res = Collider::collide(pcol, collidableMap[104][platIt]);
+		if (res.collided())
+		{
+			if (player->physicalCollide(res, ghosting))	//if it got ghosting
+			{
+				ghosting = platIt;
+			}
+		}
+		else if (platIt == ghosting)	//if its not colliding but is the ghosting one then its above now or has fallen away
+		{
+			ghosting = 0;
 
+		}
+	}
+	*/
 	for (int pickIt = 0; pickIt < collidableMap[105].size(); pickIt++)	//cycles through pickups
 	{
 		if (Collider::collide(pcol, collidableMap[105][pickIt]).collided())
@@ -523,7 +548,7 @@ void Game::doCollisions()
 	{
 		if (Collider::collide(pcol, collidableMap[108][dropIt]).collided())
 		{
-			boost::shared_ptr<objects::DropoffZone> p = util::downcast<objects::DropoffZone>(collidableMap[105][dropIt]);
+			boost::shared_ptr<objects::DropoffZone> p = util::downcast<objects::DropoffZone>(collidableMap[108][dropIt]);
 			player->dropoffCollide(p);
 		}
 

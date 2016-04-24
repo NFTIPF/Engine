@@ -5,6 +5,7 @@ using namespace objects;
 PickupZone::PickupZone()
 {
 	displaying = true;
+	maxNuts = 1;
 }
 
 
@@ -54,13 +55,14 @@ void PickupZone::load(boost::property_tree::ptree& dataTree, ResourceManager& rm
 	parser.readValue<double>("pickupHoverDistance", gapDist, dataTree);
 	parser.readValue<std::string>("seasonName", seasonName, dataTree);
 	parser.readValue<int>("rarityThreshold", rarityThreshold, dataTree);
+	parser.readValue<int>("maxNuts", maxNuts, dataTree);
 
 	//resMan = &rman;
 
 	size = sf::Vector2f(xValRight - xValLeft, thickness);
 	position = sf::Vector2f((xValRight + xValLeft) / 2, yVal + thickness/2);
 
-
+	distrMax = xValRight - xValLeft;
 	//loading texture
 
 	parser.readValue<std::string>("texture", textureName, dataTree);
@@ -68,6 +70,7 @@ void PickupZone::load(boost::property_tree::ptree& dataTree, ResourceManager& rm
 	sf::Texture* tmpTex = rman.getTexturePointerByName(textureName);
 	
 	tex = Texture(tmpTex, &position, &size);
+
 }
 
 
@@ -83,6 +86,7 @@ boost::property_tree::ptree PickupZone::write()
 	properties.put("pickupHoverDistance", gapDist);
 	properties.put("texture", textureName);
 	properties.put("rarityThreshold", rarityThreshold);
+	properties.put("maxNuts", maxNuts);
 
 	return properties;
 }
@@ -93,7 +97,13 @@ void PickupZone::changeSeason(const std::string& newSeason)
 	seasonName = newSeason;
 }
 
-
+void PickupZone::regeneratePickups()
+{
+	for (int i = pickups.size(); i < maxNuts; i++)
+	{
+		generatePickup();
+	}
+}
 void PickupZone::generatePickup()
 {
 
@@ -118,7 +128,7 @@ void PickupZone::generatePickup()
 	const sf::Vector2f default_size(100, 100);
 
 
-	double randXPos = rand() / RAND_MAX * (xValRight - xValLeft - default_size.x / 2) + xValLeft + default_size.x / 2;
+	double randXPos = rand() / (float)(RAND_MAX) * (xValRight - xValLeft - default_size.x / 2) + xValLeft + default_size.x / 2;
 	
 
 	
@@ -127,8 +137,9 @@ void PickupZone::generatePickup()
 
 	boost::shared_ptr<Pickup> newPickup = util::downcast<Pickup>(protoPickup);
 	newPickup->setup(sf::Vector2f(randXPos , yVal + default_size.y / 2 + gapDist), default_size, typName, *resMan);
+	newPickup->setActive(true);
 
-	objMan->addObject(protoPickup, "Layers.Layer0");
+	objMan->addObject(protoPickup, "Layers.Layer1");
 	objMan->addObject(protoPickup, "Collidables");
 }
 

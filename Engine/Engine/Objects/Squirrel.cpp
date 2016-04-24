@@ -20,11 +20,11 @@ void Squirrel::draw(Layer& renderTarget)
 
 	if (velocity.x > 0)
 	{
-		if (jumping && velocity.y > .1 && !colliding)
+		if (velocity.y > .1 || velocity.y < -.1)
 		{
-			JUMP.drawNextFrame(*renderTarget.getRenderTexture());
+			JR.drawNextFrame(*renderTarget.getRenderTexture());
 		}
-		else if (lastAcceleration.x < -100000)
+		else if (lastAcceleration.x < 0)
 		{
 			TR.drawNextFrame(*renderTarget.getRenderTexture());
 		}
@@ -37,11 +37,11 @@ void Squirrel::draw(Layer& renderTarget)
 	}
 	else if (velocity.x < 0)
 	{
-		if (jumping && velocity.y > .1 && !colliding)
+		if (velocity.y > .1 || velocity.y < -.1)
 		{
-			JUMP.drawNextFrame(*renderTarget.getRenderTexture());
+			JL.drawNextFrame(*renderTarget.getRenderTexture());
 		}
-		else if (lastAcceleration.x > 1000000)
+		else if (lastAcceleration.x > 0)
 		{
 			TL.drawNextFrame(*renderTarget.getRenderTexture());
 		}
@@ -62,34 +62,44 @@ void Squirrel::draw(Layer& renderTarget)
 void Squirrel::update(InputData& inpData)
 {
 	if (!isActive){ return; }
-
+	if (colliding)
+	{
+		jumping = false;
+		JL.reset();
+		JR.reset();
+	}
 	if (inpData.isKeyHeld(sf::Keyboard::Up))
 	{
-		float time;
-		if (!jumping)
+		//applyForce(sf::Vector2f(0, -moveForce));
+		if (jumpTimer.getElapsedTime().asSeconds() > jumpTime*4 || jumping)
 		{
-			jumping = true;
-			jumpTimer.restart().asSeconds();
-
-		}
-		
-		if (jumping)
-		{
-			time = jumpTimer.getElapsedTime().asSeconds();
-
-			if (time > jumpTime)
+			float time;
+			if (!jumping)
 			{
-				if (colliding)
+				jumping = true;
+				jumpTimer.restart().asSeconds();
+
+			}
+
+			if (jumping)
+			{
+				time = jumpTimer.getElapsedTime().asSeconds();
+
+				if (time > jumpTime)
 				{
-					jumping = false;
+					if (colliding)
+					{
+						jumping = false;
+					}
 				}
-			}
-			else
-			{
-				applyForce(sf::Vector2f(0, -jumpForce));
-			}
+				else
+				{
+					applyForce(sf::Vector2f(0, -jumpForce));
+				}
 
+			}
 		}
+
 
 	}
 	float multiplier = 1;
@@ -104,6 +114,15 @@ void Squirrel::update(InputData& inpData)
 	if (inpData.isKeyHeld(sf::Keyboard::Right))
 	{
 		applyForce(sf::Vector2f(moveForce*multiplier, 0));
+	}
+	if (inpData.isKeyHeld(sf::Keyboard::Down))
+	{
+		//applyForce(sf::Vector2f(0, moveForce));
+		falling = true;
+	}
+	else
+	{
+		falling = false;
 	}
 	lastAcceleration = acceleration;
 
@@ -153,14 +172,19 @@ void Squirrel::load(boost::property_tree::ptree& dataTree, ResourceManager& recM
 	options.readValue<int>("AnimationFPS", fps);
 	options.readValue <std::string>("TurnLeft", TLName);
 	options.readValue<std::string>("TurnRight", TRName);
-	options.readValue<std::string>("Jump", JumpName);
+	options.readValue<std::string>("JumpLeft", JLName);
+	options.readValue<std::string>("JumpRight", JRName);
 
 	RR = Animation(recMan.getTexturePointerByName(RRName), frameSize, displaySize, fps, position);
 	RL = Animation(recMan.getTexturePointerByName(RLName), frameSize, displaySize, fps, position);
 	idle = Animation(recMan.getTexturePointerByName(idleSSName), frameSize, displaySize, fps, position);
 	TL = Animation(recMan.getTexturePointerByName(TLName), frameSize, displaySize, fps, position);
 	TR = Animation(recMan.getTexturePointerByName(TRName), frameSize, displaySize, fps, position);
-	JUMP = Animation(recMan.getTexturePointerByName(JumpName), frameSize, displaySize, fps, position);
+
+	JR = Animation(recMan.getTexturePointerByName(JRName), frameSize, displaySize, fps, position);
+	JR.setFrameFreeze(true);
+	JL = Animation(recMan.getTexturePointerByName(JLName), frameSize, displaySize, fps, position);
+	JL.setFrameFreeze(true);
 
 	HitBox box;
 	box.create(sf::Vector2f(displaySize.x/3, displaySize.y));
@@ -189,15 +213,39 @@ boost::property_tree::ptree Squirrel::write()
 	return xml;
 }
 
-void Squirrel::physicalCollide(CollisionData& data)
+bool Squirrel::physicalCollide(CollisionData& data, bool isGhosting)
 {
-	std::tuple<sf::Vector2f, sf::Vector2f, bool> response = Collider::getKineticResponseDoublePolygon(velocity, hitbox.get(), data.getCollidedHitbox()->get());
+	std::tuple<sf::Vector2f, sf::Vector2f, int> response = Collider::getKineticResponseDoublePolygon(velocity, hitbox.get(), data.getCollidedHitbox()->get(), false);
+
 
 	colliding = std::get<2>(response);
 
-	setPosition(position + std::get<1>(response));
-	setVelocity(std::get<1>(response)+ velocity);
+	/*
+	if (velocity.y < -.1 && !data.getCollidedHitbox()->hasBottom())
+	{
+		//dont apply transform
+
+		setPosition(data.getCollidedHitbox()->getPosition() + sf::Vector2f(0, -150));
+		setVelocity(velocity - sf::Vector2f(0, velocity.y));
+		colliding = true;
+
+		return true;
+	}
+	else if (falling && !data.getCollidedHitbox()->hasBottom())
+	{
+		setPosition(data.getCollidedHitbox()->getPosition() + sf::Vector2f(0, 150));
+		colliding = false;
+		return true;
+	}
+	*/
+	//else
+	//{
+		setPosition(position + std::get<1>(response));
+		setVelocity(std::get<1>(response)+velocity);
+	//}
+
 	hitbox.updatePosition();
+
 	//gravity = false;
 	//applyForce(sf::Vector2f(0, -GRAVITY));
 	//std::cout << "Normal: " << std::get<1>(response).x << ", " << std::get<1>(response).y << std::endl;
@@ -206,6 +254,7 @@ void Squirrel::physicalCollide(CollisionData& data)
 	//std::cout <<std::endl;
 	//std::cout << colliding << ": " << std::get<0>(response).x << ", " << std::get<0>(response).y << ": " << std::get<1>(response).x << ", " << std::get<1>(response).y << std::endl;
 	//std::cout << "vel:" << velocity.x << ", " << velocity.y << std::endl;
+	return true;
 }
 
 bool Squirrel::pickupCollide(boost::shared_ptr<Pickup>& pickup)
@@ -238,3 +287,4 @@ void Squirrel::dropoffCollide(boost::shared_ptr<objects::DropoffZone>& d)
 	}
 
 }
+

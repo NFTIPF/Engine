@@ -76,6 +76,7 @@ void Pickup::load(boost::property_tree::ptree& dataTree, ResourceManager& rman)
 	properties.put("pickupName", pickupName);
 	properties.put("type", type);
 
+
 	return properties;
 }
 

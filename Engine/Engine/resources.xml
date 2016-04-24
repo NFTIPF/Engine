@@ -103,20 +103,47 @@
 		<group>StartButton</group>
 	</resource>
 		<resource>
-		<path>Resources/JumpLeft.png</path>
-		<name>JumpLeft</name>
+		<path>Resources/JumpRight.png</path>
+		<name>JumpRight</name>
 	</resource>
 			<resource>
 		<path>Resources/nothing.png</path>
 		<name>nothing</name>
 	</resource>
 	<resource>
-		<path>Resources/snow.png</path>
-		<name>snow</name>
-	</resource>
-	<resource>
 		<path>Resources/drop.png</path>
 		<name>drop</name>
 	</resource>
-
+		<resource>
+		<path>Resources/JumpLeft.png</path>
+		<name>JumpLeft</name>
+	</resource>
+		<resource>
+		<path>Resources/Particles/dust.png</path>
+		<name>dust</name>
+	</resource>
+			<resource>
+		<path>Resources/Particles/leafOrange.png</path>
+		<name>leaf</name>
+	</resource>
+			<resource>
+		<path>Resources/Particles/snow</path>
+		<name>snow</name>
+	</resource>
+			<resource>
+		<path>Resources/Particles/rainLight.png</path>
+		<name>rainLight</name>
+	</resource>
+			<resource>
+		<path>Resources/Particles/rainHeavy.png</path>
+		<name>rainHeavy</name>
+	</resource>
+<resource>
+		<path>Resources/Platforms</path>
+		<name>platforms</name>
+	</resource>
+<resource>
+		<path>Resources/BG</path>
+		<name>backgrounds</name>
+	</resource>
 </resources>

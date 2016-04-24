@@ -58,6 +58,7 @@
 		<attr attr="ySize"/>
 		<attr attr="pickupHoverDistance"/>
 		<attr attr="texture"/>
+		<attr attr="maxNuts"/>
 		<attr attr="rarityThreshold"/>
 	</type>
 	<type name="ParticleSystem">
@@ -68,6 +69,17 @@
 		<attr attr="position.<xmlattr>.y"/>
 		<attr attr="size.<xmlattr>.x"/>
 		<attr attr="size.<xmlattr>.y"/>
+		<attr attr="capacity"/>
+		<attr attr="minDropTime"/>
+		<attr attr="texture"/>
+		<attr attr="display"/>
+	</type>
+	<type name="Home">
+		<attr attr="position.<xmlattr>.x"/>
+		<attr attr="position.<xmlattr>.y"/>
+		<attr attr="size.<xmlattr>.x"/>
+		<attr attr="size.<xmlattr>.y"/>
+		<attr attr="capacity"/>
 		<attr attr="minDropTime"/>
 		<attr attr="texture"/>
 		<attr attr="display"/>

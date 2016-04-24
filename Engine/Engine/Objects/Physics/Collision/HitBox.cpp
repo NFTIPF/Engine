@@ -4,6 +4,8 @@
 HitBox::HitBox()
 {
 	position = &sf::Vector2f(0, 0);	//default position to prevent errors
+	feathered = false;
+	bottomed = true;
 }
 
 HitBox::~HitBox(){}
@@ -99,4 +101,14 @@ void HitBox::feather(const bool& onoff, const int& amount)
 bool HitBox::isFeather()
 {
 	return feathered;
+}
+
+bool HitBox::hasBottom()
+{
+	return bottomed;
+}
+
+void HitBox::setHasBottom(const bool& bot)
+{
+	bottomed = bot;
 }
