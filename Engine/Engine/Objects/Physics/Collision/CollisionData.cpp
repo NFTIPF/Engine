@@ -24,3 +24,13 @@ std::vector<sf::Vector2f> CollisionData::getCollisionPoints()
 {
 	return collisionPoints;
 }
+
+bool CollisionData::getFeathered()
+{
+	return feathered;
+}
+
+void CollisionData::setFeathered(const bool& isFeather)
+{
+	feathered = isFeather;
+}

@@ -16,6 +16,8 @@
 //SFML includes
 #include <SFML/Graphics.hpp>
 
+#include "Graphics/TiledTexture.hpp"
+
 namespace objects
 {
 //class for testing ObjectManager/group and so on
@@ -35,8 +37,7 @@ namespace objects
 
 	private:
 
-		const sf::Texture* testTex;
-		sf::VertexArray texCoords;
+		Texture tex;
 
 		sf::Vector2f position;
 		sf::Vector2f size;

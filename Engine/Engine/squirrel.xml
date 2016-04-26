@@ -8,11 +8,7 @@
             <texture>acorn</texture>
             <type>TestObject</type>
          </object>
-      </chunk>
-   </layer>
-   <layer scrollx="1.39999998" scrolly="1.39999998" boundx="13920" boundy="8080" z="1">
-      <chunk index="1">
-         <object>
+		 	   <object>
             <fps>12</fps>
             <frameSize x="32" y="32" />
             <idle>idle</idle>
@@ -22,6 +18,11 @@
             <walking>walking</walking>
             <type>Squirrel</type>
          </object>
+      </chunk>
+
+   </layer>
+   <layer scrollx="1.39999998" scrolly="1.39999998" boundx="13920" boundy="8080" z="1">
+      <chunk index="1">
          <object>
             <position x="333" y="333" />
             <size x="333" y="33" />

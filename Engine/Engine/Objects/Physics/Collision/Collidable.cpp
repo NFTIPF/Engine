@@ -20,7 +20,11 @@ bool Collidable::getColliding()
 	return colliding;
 }
 
-HitBox Collidable::getHitBox()
+void Collidable::setHitBox(HitBox newBox)
 {
-	return hitbox;
+	hitbox = newBox;
+}
+HitBox* Collidable::getHitBox()
+{
+	return &hitbox;
 }

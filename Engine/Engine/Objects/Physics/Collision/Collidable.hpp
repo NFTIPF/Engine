@@ -9,11 +9,13 @@ public:
 	Collidable();
 	~Collidable();
 
+	void updateHitbox();
 
 	void setColliding(const bool& col);
 	bool getColliding();
 
-	HitBox getHitBox();
+	void setHitBox(HitBox newBox);
+	HitBox* getHitBox();
 
 protected:
 	HitBox hitbox;

@@ -60,6 +60,9 @@ void Editor::editorBegin()
 
 	sf::RenderWindow& window = *windowPtr;
 	window.setKeyRepeatEnabled(false);		//makes it so when a key is hit, only one event is recorded, not nine, or whatever -- ignores holding keys
+	window.setFramerateLimit(60);
+
+	sf::Vector2f start = *player->getPosition();
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -146,11 +149,16 @@ void Editor::editorBegin()
 
 		update();
 		editorUpdate();
+		sf::Vector2f mPos = inpData.getMousePosition();
+		sf::Vector2f ppos = *player->getPosition() - start;
+		sf::Vector2f sspeed = layMan.getLayerPtr(currentLayer)->getScrollSpeed();
+		ppos = sf::Vector2f(sspeed.x * ppos.x, sspeed.y*ppos.y);
+		sf::Vector2f tmPos = mPos + ppos;
+		std::cout << "TMPOS:" << tmPos.x << ", " << tmPos.y << std::endl;
 
 
 		draw();
 		editorDraw();
-
 
 		window.display();
 

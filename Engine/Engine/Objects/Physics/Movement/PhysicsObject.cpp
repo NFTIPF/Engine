@@ -17,13 +17,6 @@ void PhysicsObject::updateMovement()
 	{
 		double frameTime = frameTimer.restart().asSeconds();
 
-		//HARDCODED platform  REMOVE
-		if (position.y > 1000)
-		{
-			velocity.y = 0;
-			position.y = 1000;
-		}
-
 		if (air)
 		{
 			sf::Vector2f s = sf::Vector2f(sign(velocity.x), sign(velocity.y));
@@ -31,17 +24,46 @@ void PhysicsObject::updateMovement()
 			acceleration -= air;	//apply air resistance
 		}
 
+		if (gravity)
+		{
+			acceleration += sf::Vector2f(0, GRAVITY);	//apply gravity for next frame
+		}
+		
 		velocity += sf::Vector2f(acceleration.x * frameTime, acceleration.y * frameTime);
 		position += velocity;
 
-		if (gravity)
+
+
+
+		if ((acceleration.x != acceleration.x) || (acceleration.y != acceleration.y))
 		{
-			acceleration = sf::Vector2f(0, GRAVITY);	//apply gravity for next frame
+			std::cout << "why?" << std::endl;
 		}
-		else
+		if ((velocity.x != velocity.x) || (velocity.y != velocity.y))
 		{
-			acceleration = sf::Vector2f(0, 0);
+			std::cout << "why?" << std::endl;
 		}
+		if ((position.x != position.x) || (position.y != position.y))
+		{
+			std::cout << "why?" << std::endl;
+		}
+
+
+
+
+
+
+		acceleration = sf::Vector2f(0, 0);
+
+	}
+
+	if (velocity.x < .05 && velocity.x > -.05)
+	{
+		velocity.x = 0;
+	}
+	if (velocity.y < .05 && velocity.y > -.05)
+	{
+		velocity.y = 0;
 	}
 
 }

@@ -1,198 +1,120 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Layers">
-      <UniqueIdentifier>{71e2823f-9c5e-4bd6-aa72-7c7ef8e4fe36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="NameSearchable">
-      <UniqueIdentifier>{f874a004-8651-49c3-ba3e-9333dc9bc2c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects">
-      <UniqueIdentifier>{5c113e25-01eb-4c98-b30a-894cc8f98f3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{fc62544a-f74f-4f6f-8394-a6788ff998b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager">
-      <UniqueIdentifier>{5476f018-2d86-4837-bccb-33437b1799a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Menu">
-      <UniqueIdentifier>{cad53fcc-d425-473a-8427-2d621aca8bbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Menu\Sources">
-      <UniqueIdentifier>{e84747fe-c6ae-4f82-8764-9e355cc83d6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Menu\Headers">
-      <UniqueIdentifier>{0ae0e2dc-2faf-4702-b2ed-fccb8d689f99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Graphics">
-      <UniqueIdentifier>{2ec34d2a-f3fc-42e6-b4a9-bfb5f0c6178a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Graphics\Animation">
-      <UniqueIdentifier>{5c65bd8a-c5c5-4759-9a45-1479635c0761}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Physics">
-      <UniqueIdentifier>{3d59c001-0536-4a6d-8e75-741bceb68315}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Physics\Collision">
-      <UniqueIdentifier>{ff737c2c-9334-4c95-82c4-72a25758992d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Physics\Movement">
-      <UniqueIdentifier>{c8697f16-b3e5-43f4-a0dc-ee12e5a8c388}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{1976fbeb-b8f3-47be-8389-c22581541008}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="EditorGUI.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Input\ControlSet.cpp" />
+    <ClCompile Include="Input\InputData.cpp" />
+    <ClCompile Include="Input\KeyboardData.cpp" />
+    <ClCompile Include="Input\MouseData.cpp" />
+    <ClCompile Include="Layers\Layer.cpp" />
+    <ClCompile Include="Layers\LayerManager.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MenuStuff\AppSprite.cpp" />
+    <ClCompile Include="MenuStuff\BasicButton.cpp" />
+    <ClCompile Include="MenuStuff\Menu.cpp" />
+    <ClCompile Include="MenuStuff\MenuElement.cpp" />
+    <ClCompile Include="MenuStuff\MenuManager.cpp" />
+    <ClCompile Include="MenuStuff\MenuSprite.cpp" />
+    <ClCompile Include="MenuStuff\MultiMenuSprite.cpp" />
+    <ClCompile Include="MenuStuff\MultiTextBox.cpp" />
+    <ClCompile Include="MenuStuff\SingleTextBox.cpp" />
+    <ClCompile Include="MenuStuff\TableEntry\EntryTable.cpp" />
+    <ClCompile Include="MenuStuff\TableEntry\EntryTextBox.cpp" />
+    <ClCompile Include="MenuStuff\TableEntry\TablePair.cpp" />
+    <ClCompile Include="NameSearchable\NameSearchable.cpp" />
+    <ClCompile Include="Objects\Graphics\Animation\Animation.cpp" />
+    <ClCompile Include="Objects\Graphics\Texture.cpp" />
+    <ClCompile Include="Objects\MovingTestObject.cpp" />
+    <ClCompile Include="Objects\Object.cpp" />
+    <ClCompile Include="Objects\ObjectClasses\Pickups\Pickup.cpp" />
+    <ClCompile Include="Objects\ObjectClasses\Pickups\PickupData.cpp" />
+    <ClCompile Include="Objects\ObjectClasses\Pickups\PickupZone.cpp" />
+    <ClCompile Include="Objects\ObjectGroup.cpp" />
+    <ClCompile Include="Objects\ObjectManager.cpp" />
+    <ClCompile Include="Objects\Physics\Collision\Collidable.cpp" />
+    <ClCompile Include="Objects\Physics\Collision\Collider.cpp" />
+    <ClCompile Include="Objects\Physics\Collision\CollisionData.cpp" />
+    <ClCompile Include="Objects\Physics\Collision\HitBox.cpp" />
+    <ClCompile Include="Objects\Physics\Movement\PhysicsObject.cpp" />
+    <ClCompile Include="Objects\Squirrel.cpp" />
+    <ClCompile Include="Objects\TestObject.cpp" />
+    <ClCompile Include="ResourceManager\ResourceGroup.cpp" />
+    <ClCompile Include="ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="Utility\Downcast.cpp" />
+    <ClCompile Include="Utility\INIParser.cpp" />
+    <ClCompile Include="Utility\Logger.cpp" />
+    <ClCompile Include="Utility\UnitTester.cpp" />
+    <ClCompile Include="Utility\Utilities.cpp" />
+    <ClCompile Include="Utility\XMLParser.cpp" />
+    <ClCompile Include="Objects\Platform.cpp" />
+    <ClCompile Include="Objects\Graphics\TiledTexture.cpp" />
+    <ClCompile Include="MenuStuff\Slider.cpp" />
+    <ClCompile Include="Objects\DropoffZone.cpp" />
+    <ClCompile Include="Objects\ParticleSystem.cpp" />
+    <ClCompile Include="Objects\Home.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utility\Downcast.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\INIParser.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\Logger.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\UnitTester.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\Utilities.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Object.hpp">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\ObjectGroup.hpp">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\ObjectManager.hpp">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Layers\Layer.hpp">
-      <Filter>Layers</Filter>
-    </ClInclude>
-    <ClInclude Include="Layers\LayerManager.hpp">
-      <Filter>Layers</Filter>
-    </ClInclude>
-    <ClInclude Include="NameSearchable\NameSearchable.hpp">
-      <Filter>NameSearchable</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager\ResourceManager.hpp">
-      <Filter>ResourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager\ResourceGroup.hpp">
-      <Filter>ResourceManager</Filter>
-    </ClInclude>
     <ClInclude Include="Defines.hpp" />
-    <ClInclude Include="Game.hpp" />
-    <ClInclude Include="Utility\XMLParser.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Editor.hpp" />
     <ClInclude Include="EditorGUI.hpp" />
-    <ClInclude Include="MenuStuff\AppSprite.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\BasicButton.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\TableEntry\EntryTable.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\TableEntry\EntryTextBox.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\Menu.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\MenuElement.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\MenuElementList.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\MenuIncludes.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\MenuManager.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\MenuSprite.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\MultiMenuSprite.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\MultiTextBox.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\SingleTextBox.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuStuff\TableEntry\TablePair.hpp">
-      <Filter>Menu\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\ControlSet.hpp">
-      <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\InputData.hpp">
-      <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\KeyboardData.hpp">
-      <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\MouseData.hpp">
-      <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\MovingTestObject.hpp">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\TestObject.hpp">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Physics\Collision\Collidable.hpp">
-      <Filter>Objects\Physics\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Physics\Collision\CollisionData.hpp">
-      <Filter>Objects\Physics\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Graphics\Animation\Animation.hpp">
-      <Filter>Objects\Graphics\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Graphics\Graphics.hpp">
-      <Filter>Objects\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Physics\Physics.hpp">
-      <Filter>Objects\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Squirrel.hpp">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\ObjectClasses\Platform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Physics\Collision\HitBox.hpp">
-      <Filter>Objects\Physics\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Physics\Movement\PhysicsObject.hpp">
-      <Filter>Objects\Physics\Movement</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Physics\Collision\Collider.hpp">
-      <Filter>Objects\Physics\Collision</Filter>
-    </ClInclude>
+    <ClInclude Include="MainMenu.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Input\ControlSet.hpp" />
+    <ClInclude Include="Input\InputData.hpp" />
+    <ClInclude Include="Input\KeyboardData.hpp" />
+    <ClInclude Include="Input\MouseData.hpp" />
+    <ClInclude Include="Layers\Layer.hpp" />
+    <ClInclude Include="Layers\LayerManager.hpp" />
+    <ClInclude Include="MenuStuff\AppSprite.hpp" />
+    <ClInclude Include="MenuStuff\BasicButton.hpp" />
+    <ClInclude Include="MenuStuff\Menu.hpp" />
+    <ClInclude Include="MenuStuff\MenuElement.hpp" />
+    <ClInclude Include="MenuStuff\MenuElementList.hpp" />
+    <ClInclude Include="MenuStuff\MenuIncludes.hpp" />
+    <ClInclude Include="MenuStuff\MenuManager.hpp" />
+    <ClInclude Include="MenuStuff\MenuSprite.hpp" />
+    <ClInclude Include="MenuStuff\MultiMenuSprite.hpp" />
+    <ClInclude Include="MenuStuff\MultiTextBox.hpp" />
+    <ClInclude Include="MenuStuff\SingleTextBox.hpp" />
+    <ClInclude Include="MenuStuff\Slider.hpp" />
+    <ClInclude Include="MenuStuff\TableEntry\EntryTable.hpp" />
+    <ClInclude Include="MenuStuff\TableEntry\EntryTextBox.hpp" />
+    <ClInclude Include="MenuStuff\TableEntry\TablePair.hpp" />
+    <ClInclude Include="NameSearchable\NameSearchable.hpp" />
+    <ClInclude Include="Objects\Graphics\Animation\Animation.hpp" />
+    <ClInclude Include="Objects\Graphics\Graphics.hpp" />
+    <ClInclude Include="Objects\Graphics\Texture.hpp" />
+    <ClInclude Include="Objects\Graphics\TiledTexture.hpp" />
+    <ClInclude Include="Objects\MovingTestObject.hpp" />
+    <ClInclude Include="Objects\Object.hpp" />
+    <ClInclude Include="Objects\ObjectClasses\Pickups\Pickup.hpp" />
+    <ClInclude Include="Objects\ObjectClasses\Pickups\PickupData.hpp" />
+    <ClInclude Include="Objects\ObjectClasses\Pickups\PickupZone.hpp" />
+    <ClInclude Include="Objects\ObjectGroup.hpp" />
+    <ClInclude Include="Objects\ObjectManager.hpp" />
+    <ClInclude Include="Objects\Physics\Collision\Collidable.hpp" />
+    <ClInclude Include="Objects\Physics\Collision\Collider.hpp" />
+    <ClInclude Include="Objects\Physics\Collision\CollisionData.hpp" />
+    <ClInclude Include="Objects\Physics\Collision\HitBox.hpp" />
+    <ClInclude Include="Objects\Physics\Movement\PhysicsObject.hpp" />
+    <ClInclude Include="Objects\Physics\Physics.hpp" />
+    <ClInclude Include="Objects\Platform.hpp" />
+    <ClInclude Include="Objects\Squirrel.hpp" />
+    <ClInclude Include="Objects\TestObject.hpp" />
+    <ClInclude Include="ResourceManager\ResourceGroup.hpp" />
+    <ClInclude Include="ResourceManager\ResourceManager.hpp" />
+    <ClInclude Include="Utility\Downcast.hpp" />
+    <ClInclude Include="Utility\INIParser.hpp" />
+    <ClInclude Include="Utility\Logger.hpp" />
+    <ClInclude Include="Utility\Timer.hpp" />
+    <ClInclude Include="Utility\UnitTester.hpp" />
+    <ClInclude Include="Utility\Utilities.hpp" />
+    <ClInclude Include="Utility\XMLParser.hpp" />
+    <ClInclude Include="Objects\DropoffZone.hpp" />
+    <ClInclude Include="Objects\ParticleSystem.hpp" />
+    <ClInclude Include="Objects\Home.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utility\Downcast.cpp">
@@ -307,9 +229,6 @@
     <ClCompile Include="Objects\Squirrel.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\ObjectClasses\Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Physics\Collision\HitBox.cpp">
       <Filter>Objects\Physics\Collision</Filter>
     </ClCompile>
@@ -319,5 +238,6 @@
     <ClCompile Include="Objects\Physics\Collision\Collider.cpp">
       <Filter>Objects\Physics\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp" />
   </ItemGroup>
 </Project>

@@ -36,9 +36,12 @@ namespace objects
 			else
 			{
 				prototypes[type] = std::make_tuple(boost::bind(&ObjectManager::instancePrototype<T>, this), currentTypeID*10000);	//id needs some (4) extra zeros
+				IDcounts[currentTypeID] = &std::get<1>(prototypes[type]);
 				currentTypeID++;
 			}
 		}
+
+		int getTypeAmount(const int& type);
 
 	private:
 		template<class derived>
@@ -49,6 +52,7 @@ namespace objects
 
 		int currentTypeID;
 		std::map<std::string, std::tuple<boost::function<Object*()>, int> > prototypes;	//function pointer and id iterator for that type
+		std::map<int, int*> IDcounts;
 		//ID is an 8 digit integer first 3 are the type ID 4 are the object ID
 		//boost::shared_ptr<Object>(ObjectManager::*makeObject)()
 

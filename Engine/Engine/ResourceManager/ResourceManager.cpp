@@ -1,14 +1,13 @@
 #include "ResourceManager.hpp"
 
-//----------------------------------------------------------------------------------------------------------------------------***************************
-//-----------------------------------------PUBLIC-----------------------------------------------------------------------------***************************
-//----------------------------------------------------------------------------------------------------------------------------***************************
 
 
 ResourceManager::ResourceManager()						//Constructor
 {
 	setVectorSize(4);									//set the vector of name maps to 4: Textures, Fonts, SoundBuffers, ResourceGroups
 	textureVector.resize(100);
+	fontVector.resize(100);
+	soundBufferVector.resize(10);
 
 	resourceManagerLogger = logger::getSLogger();		//setup the logger
 }

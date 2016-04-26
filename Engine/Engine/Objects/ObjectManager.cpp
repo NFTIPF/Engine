@@ -41,3 +41,17 @@ boost::shared_ptr<Object> ObjectManager::getPrototype(const std::string& type)
 	}
 }
 
+int ObjectManager::getTypeAmount(const int& type)
+{
+	auto it = IDcounts.find(type);	//make sure the type exists
+	if (it != IDcounts.end())
+	{
+		return *it->second;
+	}
+	else
+	{
+		return 0;
+	}
+	
+}
+

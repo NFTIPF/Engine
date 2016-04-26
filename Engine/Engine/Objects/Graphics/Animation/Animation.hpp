@@ -29,6 +29,9 @@ public:
 
 	void drawNextFrame(sf::RenderTexture& texture);
 
+	void setFrameFreeze(const bool& onoff);	//freezes on last frame until reset
+	void reset();
+
 protected:
 	void prepareNextFrame();
 	void updatePosition();
@@ -50,4 +53,6 @@ protected:
 	const sf::Vector2f* position;		//this pointer to object position so it doesn't have to be passed
 	sf::Vector2f lastPosition;
 
+	bool freezeFrame;
+	bool frozen;
 };

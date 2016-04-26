@@ -14,6 +14,8 @@ public:
 	HitBox* getCollidedHitbox();
 
 	std::vector<sf::Vector2f> getCollisionPoints();
+	bool getFeathered();
+	void setFeathered(const bool& newFeather);
 
 private:
 	HitBox * collidedHitbox;
@@ -21,5 +23,6 @@ private:
 	std::vector<sf::Vector2f> collisionPoints;
 
 	bool hasCollision;
+	bool feathered;
 };
 

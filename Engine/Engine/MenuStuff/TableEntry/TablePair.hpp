@@ -31,7 +31,6 @@ public:
 private:
 
 	SingleTextBox keyText;
-	SingleTextBox colonDivider;
 	EntryTextBox entryBox;
 	double spacing;
 

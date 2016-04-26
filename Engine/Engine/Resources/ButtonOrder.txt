@@ -1,0 +1,6 @@
+First	:Normal
+Second	:Hover
+Third	:Press
+Fourth	:Pressed Normal
+Fifth	:Pressed Hover
+Sixth	:Pressed Press

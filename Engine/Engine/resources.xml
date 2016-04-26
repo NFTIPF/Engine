@@ -1,36 +1,20 @@
 <?xml version="1.0"?>
 <resources>
 	<resource>
-		<path>Resources/TestResources/ModernArtBlue.png</path>
-		<name>ModernArt</name>
-	</resource>
-		<resource>
-		<path>Resources/TestResources/KittyKitty.png</path>
-		<name>KittyKitty</name>
-	</resources>
-	<resource>
-		<path>Resources/TestResources/potato.png</path>
-		<name>potato</name>
-	</resource>
-	<resource>
-		<path>Resources/TestResources/acorn.png</path>
+		<path>Resources/Nuts/acorn.png</path>
 		<name>acorn</name>
 	</resource>
-	<resource>
-		<path>Resources/TestResources/sky.png</path>
-		<name>sky</name>
-	</resource>
-	<resource>
-		<path>Resources/TestResources/squirrel.png</path>
-		<name>squirrel</name>
+		<resource>
+		<path>Resources/Nuts/pumpkin.png</path>
+		<name>pumpkin</name>
 	</resource>
 	<resource>
 		<path>Resources/TestResources/grass.png</path>
 		<name>grass</name>
 	</resource>
 	<resource>
-		<path>Resources/TestResources/ArrowCross.png</path>
-		<name>ArrowCross</name>
+		<path>Resources/MenuBG.png</path>
+		<name>MenuBackground</name>
 	</resource>
 	<resource>
 		<path>Resources/TestResources/darksky.png</path>
@@ -41,12 +25,32 @@
 		<name>moon</name>
 	</resource>
 	<resource>
-		<path>Resources/TestResources/EasterEgg.png</path>
-		<name>egg</name>
+		<path>Resources/tree.png</path>
+		<name>tree</name>
+	</resource>
+		<resource>
+		<path>Resources/sky.png</path>
+		<name>sky</name>
+	</resource>
+	<resource>
+		<path>Resources/RunRight.png</path>
+		<name>RunRight</name>
+	</resource>
+			<resource>
+		<path>Resources/RunLeft.png</path>
+		<name>RunLeft</name>
 	</resource>
 	<resource>
 		<path>Resources/GUIResources/TextBar.png</path>
 		<name>EditorEntryBar</name>
+	</resource>
+	<resource>
+		<path>Resources/TurnRight.png</path>
+		<name>TurnRight</name>
+	</resource>
+	<resource>
+		<path>Resources/TurnLeft.png</path>
+		<name>TurnLeft</name>
 	</resource>
 	<resource>
 		<path>Resources/GUIResources/GrayTextBoxBackground.png</path>
@@ -59,8 +63,17 @@
 		<group>EditorButton:1</group>
 	</resource>
 	<resource>
-		<path>Resources/ShipGame</path>
+		<path>Resources/GUIResources/TextBar.png</path>
+		<name>OptionsSlider</name>
+	</resource>
+	<resource>
+		<path>Resources/GUIResources/GrayTextBoxBackground.png</path>
+		<name>SliderBackground</name>
+	</resource>
+	<resource>
+		<path>Resources/MenuButton</path>
 		<name>DONTCARE</name>
+		<group>MenuButton</group>
 	</resource>
 	<resource>
 		<path>Resources/walking.png</path>
@@ -69,5 +82,68 @@
 	<resource>
 		<path>Resources/idle.png</path>
 		<name>idle</name>
+	</resource>
+		<resource>
+		<path>Resources/GUIResources/TimesNewRoman.ttf</path>
+		<name>MainMenuFont</name>
+	</resource>
+		<resource>
+		<path>Resources/OptionsButton</path>
+		<name>DONTCARE</name>
+		<group>OptionsButton</group>
+	</resource>
+		<resource>
+		<path>Resources/QuitButton</path>
+		<name>DONTCARE</name>
+		<group>QuitButton</group>
+	</resource>
+	<resource>
+		<path>Resources/StartButton</path>
+		<name>DONTCARE</name>
+		<group>StartButton</group>
+	</resource>
+		<resource>
+		<path>Resources/JumpRight.png</path>
+		<name>JumpRight</name>
+	</resource>
+			<resource>
+		<path>Resources/nothing.png</path>
+		<name>nothing</name>
+	</resource>
+	<resource>
+		<path>Resources/drop.png</path>
+		<name>drop</name>
+	</resource>
+		<resource>
+		<path>Resources/JumpLeft.png</path>
+		<name>JumpLeft</name>
+	</resource>
+		<resource>
+		<path>Resources/Particles/dust.png</path>
+		<name>dust</name>
+	</resource>
+			<resource>
+		<path>Resources/Particles/leafOrange.png</path>
+		<name>leaf</name>
+	</resource>
+			<resource>
+		<path>Resources/Particles/snow</path>
+		<name>snow</name>
+	</resource>
+			<resource>
+		<path>Resources/Particles/rainLight.png</path>
+		<name>rainLight</name>
+	</resource>
+			<resource>
+		<path>Resources/Particles/rainHeavy.png</path>
+		<name>rainHeavy</name>
+	</resource>
+<resource>
+		<path>Resources/Platforms</path>
+		<name>platforms</name>
+	</resource>
+<resource>
+		<path>Resources/BG</path>
+		<name>backgrounds</name>
 	</resource>
 </resources>

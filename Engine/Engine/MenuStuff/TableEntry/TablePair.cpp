@@ -39,9 +39,7 @@ void TablePair::setup( 	sf::Font * const ffont, const unsigned int& ffontsize, c
 
 	keyText.setup(sf::Vector2f(0, 0), ffont, "", ffontsize, bgSiz.x - 2 * indent, fcolor);
 
-	colonDivider.setup(sf::Vector2f(spac, 0), ffont, "|:|", ffontsize, bgSiz.x - 2 * indent, fcolor);
-
-	entryBox.setup(ffont, ffontsize, fcolor, bgTex, bgSiz, barTex, sf::Vector2f(2*spac + bgSiz.x/2, 0), indent);
+	entryBox.setup(ffont, ffontsize, fcolor, bgTex, bgSiz, barTex, sf::Vector2f(spac + bgSiz.x/2, 0), indent);
 
 	
 }
@@ -49,6 +47,8 @@ void TablePair::setup( 	sf::Font * const ffont, const unsigned int& ffontsize, c
 void TablePair::setKeyString(const std::string& kstr)
 {
 	keyText.setTextString(kstr);
+
+	keyText.move(sf::Vector2f(- keyText.getGlobalDimensions().x / 2, 0));
 }
 
 
@@ -84,8 +84,6 @@ void TablePair::draw(sf::RenderWindow& window, const sf::Vector2f& drawPos)
 	position += drawPos;
 
 	keyText.draw(window, position);
-
-	colonDivider.draw(window, position);
 
 	entryBox.draw(window, position);
 

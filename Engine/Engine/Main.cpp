@@ -10,6 +10,7 @@
 #include "Objects/TestObject.hpp"
 #include "Objects/Object.hpp"
 #include "Game.hpp"
+#include "MainMenu.hpp"
 #include "Editor.hpp"
 #include "Utility\XMLParser.hpp"
 #include <iostream>
@@ -18,6 +19,7 @@
 
 int main(int, char*[])
 {
+	srand(time(NULL));
 	logger::init();
 	logger::setSeverityLevel(DEBUG);
 	auto slg = logger::getSLogger();

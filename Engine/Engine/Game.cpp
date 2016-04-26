@@ -7,6 +7,9 @@
 Game::Game()
 {
 	logger = logger::getSLogger();
+	paused = true;
+	displaying = false;
+	lastCollidablesSize = 0;
 }
 
 
@@ -17,7 +20,8 @@ void Game::initialize(const std::string& cfgFile, const std::string& resFile, co
 	configFile = cfgFile; resourceFile = resFile; objectFile = objFile; mapFile = mpFile; saveFile = save;
 	loadGameConfig(configFile);
 
-	windowPtr = boost::shared_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(renderSize.x, renderSize.y), windowName));
+	windowPtr = boost::shared_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(renderSize.x, renderSize.y), windowName));// , sf::Style::Fullscreen));
+
 	
 	if (maxFPS > 0)
 	{
@@ -32,6 +36,12 @@ void Game::initialize(const std::string& cfgFile, const std::string& resFile, co
 
 	//thats all for now folks
 	inpData.frameUpdate();
+
+	mainMenu.initialize(&recMan, (sf::Vector2f)windowPtr->getSize());
+	
+
+	boost::function<void()> boundFxn = boost::bind(&Game::unpause, this);			 //goes in game
+	mainMenu.setButtonCallback("mainMenu", "startButton", boundFxn, 12);
 	
 }
 
@@ -122,8 +132,19 @@ void Game::begin()
 
 		window.clear();
 
-		update();
-		draw();
+		if (!paused)
+		{
+			update();
+		}
+		if (displaying)
+		{
+			draw();
+		}
+		if (!displaying && paused)
+		{
+			mainMenu.update(inpData);
+			mainMenu.draw(window);
+		}
 
 		window.display();
 
@@ -134,8 +155,23 @@ void Game::begin()
 
 }
 
+void Game::pause()
+{
+	paused = true;
+}
+
+void Game::unpause()
+{
+	paused = false;
+	setDisplay(true);
+}
 
 //PRIVATE FUNCTIONS
+
+void Game::setDisplay(const bool& onoff)
+{
+	displaying = onoff;
+}
 
 void Game::draw()
 {
@@ -157,8 +193,22 @@ void Game::draw()
 
 void Game::update()
 {
+
 	doChunks();
-	objMan.getObject(1030001)->update(inpData);
+	updateCollidables();
+	player->update(inpData);
+	for (int zoneIt = 0; zoneIt < zones.size(); zoneIt++)
+	{
+		zones[zoneIt]->update(inpData);
+	}
+	part->update(inpData);
+	for (unsigned int i = 1; i <= objMan.getTypeAmount(108) - 1080000; i++)
+	{
+		auto obj = objMan.getObject(1080000 + i);
+		obj->update(inpData);
+	}
+	doCollisions();
+
 
 
 	//for each layer
@@ -272,9 +322,10 @@ void Game::loadResources()
 		}
 		else
 		{
-			if (numtoadd.size() > 0)	//check if it should be added to group
+			if (output[ii][0] != "")	//check if it should be added to group
 			{
-				recMan.addFilesResourceGroupFromDirectory(returned[0], numtoadd[0]);
+				recMan.addFilesResourceGroupFromDirectory(returned[0], output[ii][0]);
+				groups.push_back(output[ii][0]);
 			}
 			else
 			{
@@ -291,6 +342,11 @@ void Game::loadObjects()
 	objMan.addPrototype<objects::MovingTestObject>("MovingTestObject");
 	objMan.addPrototype<objects::Squirrel>("Squirrel");
 	objMan.addPrototype<objects::Platform>("Platform");
+	objMan.addPrototype<objects::Pickup>("Pickup");
+	objMan.addPrototype<objects::PickupZone>("PickupZone");
+	objMan.addPrototype<objects::ParticleSystem>("ParticleSystem");
+	objMan.addPrototype<objects::DropoffZone>("DropoffZone");
+	objMan.addPrototype<objects::Home>("Home");
 }
 
 void Game::loadMap()
@@ -343,10 +399,13 @@ void Game::loadMap()
 	}
 
 
-	tmpCenter = sf::Vector2f(500, 500);							//starting point of reference
+	player = util::downcast<objects::Squirrel>(objMan.getObject(1030001));
+	layMan.setReferencePoint(player->getPosition());						//make sure the layers reference the point
 
-	layMan.setReferencePoint(*util::downcast<objects::Squirrel>(objMan.getObject(1030001))->getPosition());						//make sure the layers reference the point
-
+	const sf::Vector2f squirrelPos = *player->getPosition();
+	part = util::downcast<objects::ParticleSystem>(objMan.getObject(1070001));
+	part->setPosition(*player->getPosition());
+	
 	for (int i = 0; i < numLayers; i++)
 	{
 		std::string layerNumber = "1";	//default is 1
@@ -362,6 +421,8 @@ void Game::loadMap()
 		parser.readValue<float>("<xmlattr>.boundy", bounds.y, layers[0][i]);
 
 		layMan.setScrollBounds({ 0, 0, bounds.x, bounds.y}, i);
+
+		const sf::Vector2f layerCenter = sf::Vector2f(windowPtr->getSize().x / 2, windowPtr->getSize().y / 2);
 		layMan.setCorners(sf::Vector2f(0, 0), (sf::Vector2f)windowPtr->getSize(), i);
 		layMan.getLayerPtr(i)->setScrollBoundedness(true);
 
@@ -370,6 +431,127 @@ void Game::loadMap()
 	layMan.createLayers();	//i just added this to the constructor...... and it broke 
 	layMan.setDependentLocking(true, 0);
 
+	organizeObjects();
 	
+}
+
+void Game::organizeObjects()
+{
+	std::vector<boost::shared_ptr<Collidable>> boxes;
+	for (unsigned int i = 1; i <= objMan.getTypeAmount(104)-1040000; i++)
+	{
+		auto obj = objMan.getObject(1040000 + i);
+		boost::shared_ptr<objects::Platform> platform = util::downcast<objects::Platform>(obj);
+		boxes.push_back(platform);
+	}
+	collidableMap[104] = boxes;
+	boxes.clear();
+	for (unsigned int i = 1; i <= objMan.getTypeAmount(105) - 1050000; i++)
+	{
+		auto obj = objMan.getObject(1050000 + i);
+		boost::shared_ptr<objects::Pickup> pickup = util::downcast<objects::Pickup>(obj);
+		boxes.push_back(pickup);
+	}
+	collidableMap[105] = boxes;
+
+	boxes.clear();
+	for (unsigned int i = 1; i <= objMan.getTypeAmount(108) - 1080000; i++)
+	{
+		auto obj = objMan.getObject(1080000 + i);
+		boost::shared_ptr<objects::DropoffZone> dropoff = util::downcast<objects::DropoffZone>(obj);
+		boxes.push_back(dropoff);
+	}
+	collidableMap[108] = boxes;
+
+	//stores downcast zones and generates pickups
+	for (unsigned int i = 1; i <= objMan.getTypeAmount(106) - 1060000; i++)
+	{
+		auto obj = objMan.getObject(1060000 + i);
+		zones.push_back(util::downcast<objects::PickupZone>(obj));
+	}
+	for (unsigned int i = 0; i < zones.size(); i++)
+	{
+		zones[i]->setManagerPtrs(recMan, objMan);
+		zones[i]->createDistribution();
+		zones[i]->regeneratePickups();
+	}
 	
+}
+
+void Game::updateCollidables()
+{
+	std::vector<int> IDS = objMan.getObjectGroup("Collidables")->getObjectIDs();
+	if (lastCollidablesSize != IDS.size())
+	{
+		for (int i = lastCollidablesSize; i < IDS.size(); i++)
+		{
+			int typeID = IDS[i] / 10000;
+			if (typeID == 104)
+			{
+				collidableMap[104].push_back(util::downcast<objects::Platform>(objMan.getObject(IDS[i])));
+
+			}
+			else if (typeID == 105)
+			{
+				collidableMap[105].push_back(util::downcast<objects::Pickup>(objMan.getObject(IDS[i])));
+
+			}
+		}
+		lastCollidablesSize = IDS.size();
+	}
+}
+void Game::doCollisions()
+{
+	boost::shared_ptr<Collidable> pcol = (boost::shared_ptr<Collidable>)player;
+	
+	CollisionData result = Collider::collide(pcol, collidableMap[104]);	//cyles through platforms
+	while(result.collided())
+	{
+		player->physicalCollide(result, false);
+
+		CollisionData res = Collider::collide(pcol, collidableMap[104]);
+		result = res;
+	}
+	
+	/*
+	for (int platIt = 0; platIt < collidableMap[104].size(); platIt++)
+	{
+		CollisionData res = Collider::collide(pcol, collidableMap[104][platIt]);
+		if (res.collided())
+		{
+			if (player->physicalCollide(res, ghosting))	//if it got ghosting
+			{
+				ghosting = platIt;
+			}
+		}
+		else if (platIt == ghosting)	//if its not colliding but is the ghosting one then its above now or has fallen away
+		{
+			ghosting = 0;
+
+		}
+	}
+	*/
+	for (int pickIt = 0; pickIt < collidableMap[105].size(); pickIt++)	//cycles through pickups
+	{
+		if (Collider::collide(pcol, collidableMap[105][pickIt]).collided())
+		{
+			boost::shared_ptr<objects::Pickup> p = util::downcast<objects::Pickup>(collidableMap[105][pickIt]);
+			if (player->pickupCollide(p))
+			{
+				objMan.deleteObject(p->getID());
+			}
+		}
+
+	}
+
+	for (int dropIt = 0; dropIt < collidableMap[108].size(); dropIt++)	//cycles through pickups
+	{
+		if (Collider::collide(pcol, collidableMap[108][dropIt]).collided())
+		{
+			boost::shared_ptr<objects::DropoffZone> p = util::downcast<objects::DropoffZone>(collidableMap[108][dropIt]);
+			player->dropoffCollide(p);
+		}
+
+	}
+
 }

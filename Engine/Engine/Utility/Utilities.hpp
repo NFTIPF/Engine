@@ -57,12 +57,12 @@ namespace util
 		b = temp;
 	}
 
-	inline int imax(int& a, int& b)
+	inline int imax(const int& a, const int& b)
 	{
 		return ((a > b) ? a : b);
 	}
 
-	inline int imin(int& a, int& b)
+	inline int imin(const int& a, const int& b)
 	{
 		return ((a < b) ? a : b);
 	}
@@ -83,12 +83,12 @@ namespace util
 
 
 
-	inline double dmax(double& a, double& b)
+	inline double dmax(const double& a, const double& b)
 	{
 		return ((a > b) ? a : b);
 	}
 
-	inline double dmin(double& a, double& b)
+	inline double dmin(const double& a, const double& b)
 	{
 		return ((a < b) ? a : b);
 	}
@@ -110,12 +110,12 @@ namespace util
 
 
 
-	inline float fmax(float& a, float& b)
+	inline float fmax(const float& a, const float& b)
 	{
 		return ((a > b) ? a : b);
 	}
 
-	inline float fmin(float& a, float& b)
+	inline float fmin(const float& a, const float& b)
 	{
 		return ((a < b) ? a : b);
 	}
@@ -138,12 +138,12 @@ namespace util
 
 
 
-	inline unsigned int uimax(unsigned int& a, unsigned int& b)
+	inline unsigned int uimax(const unsigned int& a, const unsigned int& b)
 	{
 		return ((a > b) ? a : b);
 	}
 
-	inline unsigned int uimin(unsigned int& a, unsigned int& b)
+	inline unsigned int uimin(const unsigned int& a, const unsigned int& b)
 	{
 		return ((a < b) ? a : b);
 	}
@@ -160,6 +160,24 @@ namespace util
 			if (a > c){ a = c; }
 			else if (a < b) { a = b; }
 		}
+	}
+
+
+	inline int gcf(int a, int b)
+	{
+		int c = 1;
+		while (c != 0)
+		{
+			c = a % b;
+			a = b;
+			b = c;
+		}
+		return a;
+	}
+
+	inline int lcm(const int& a, const int& b)
+	{
+		return a * b / gcf(a, b);
 	}
 
 	inline std::string reverseString(const std::string& str)
